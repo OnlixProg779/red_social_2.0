@@ -1,4 +1,7 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Comentario} from './comentario.model';
+import {ReaccionRespuestaCom} from './reaccion-respuesta-com.model';
+import {EtiquetaRespuestaCom} from './etiqueta-respuesta-com.model';
 
 @model({
   settings: {
@@ -14,13 +17,6 @@ export class RespuestaComentario extends Entity {
     postgresql: {columnName: 'RespuestaComentarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   respuestaComentarioId: string;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'ComentarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  comentarioId?: string;
-
   @property({
     type: 'date',
     postgresql: {columnName: 'Date', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -39,6 +35,14 @@ export class RespuestaComentario extends Entity {
   })
   active?: boolean;
 
+  @belongsTo(() => Comentario)
+  comentarioId: string;
+
+  @hasMany(() => ReaccionRespuestaCom)
+  reaccionRespuestaComs: ReaccionRespuestaCom[];
+
+  @hasMany(() => EtiquetaRespuestaCom)
+  etiquetaRespuestaComs: EtiquetaRespuestaCom[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

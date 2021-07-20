@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Comentario} from './comentario.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Reaccion'}}
@@ -11,13 +12,6 @@ export class Reaccion extends Entity {
     postgresql: {columnName: 'ReaccionId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   reaccionId: string;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'ComentarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  comentarioId?: string;
-
   @property({
     type: 'string',
     postgresql: {columnName: 'ReaccionText', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -30,6 +24,8 @@ export class Reaccion extends Entity {
   })
   active?: boolean;
 
+  @belongsTo(() => Comentario)
+  comentarioId: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data

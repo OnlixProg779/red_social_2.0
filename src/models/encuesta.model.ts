@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {Publicacion} from './publicacion.model';
+import {RespuestaEncuesta} from './respuesta-encuesta.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Encuesta'}}
@@ -11,13 +13,6 @@ export class Encuesta extends Entity {
     postgresql: {columnName: 'EncuestaId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   encuestaId: string;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'PublicacionId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  publicacionId?: string;
-
   @property({
     type: 'string',
     postgresql: {columnName: 'Pregunta', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -30,6 +25,11 @@ export class Encuesta extends Entity {
   })
   active?: boolean;
 
+  @belongsTo(() => Publicacion)
+  publicacionId: string;
+
+  @hasMany(() => RespuestaEncuesta)
+  respuestaEncuestas: RespuestaEncuesta[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

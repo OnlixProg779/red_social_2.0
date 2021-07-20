@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Encuesta} from './encuesta.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'RespuestaEncuesta'}}
@@ -11,13 +12,6 @@ export class RespuestaEncuesta extends Entity {
     postgresql: {columnName: 'RespuestaEncuestaId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   respuestaEncuestaId: string;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'EncuestaId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  encuestaId?: string;
-
   @property({
     type: 'string',
     postgresql: {columnName: 'Respuesta', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -36,6 +30,8 @@ export class RespuestaEncuesta extends Entity {
   })
   active?: boolean;
 
+  @belongsTo(() => Encuesta)
+  encuestaId: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data

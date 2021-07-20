@@ -1,5 +1,9 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany, hasOne} from '@loopback/repository';
 import {Perfil} from './perfil.model';
+import {ReaccionPublicacion} from './reaccion-publicacion.model';
+import {EtiquetaPublicacion} from './etiqueta-publicacion.model';
+import {Encuesta} from './encuesta.model';
+import {Comentario} from './comentario.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Publicacion'}}
@@ -50,6 +54,18 @@ export class Publicacion extends Entity {
 
   @belongsTo(() => Perfil)
   perfilId: string;
+
+  @hasMany(() => ReaccionPublicacion)
+  reaccionPublicacions: ReaccionPublicacion[];
+
+  @hasMany(() => EtiquetaPublicacion)
+  etiquetasDePublicacion: EtiquetaPublicacion[];
+
+  @hasOne(() => Encuesta)
+  encuesta: Encuesta;
+
+  @hasMany(() => Comentario)
+  comentarios: Comentario[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
