@@ -1,38 +1,76 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'RespuestaEncuesta'}}
+  settings: {
+    idInjection: false,
+    postgresql: {schema: 'public', table: 'RespuestaEncuesta'},
+  },
 })
 export class RespuestaEncuesta extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'RespuestaEncuestaId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'RespuestaEncuestaId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   respuestaEncuestaId: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'EncuestaId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'EncuestaId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   encuestaId?: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'Respuesta', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Respuesta',
+      dataType: 'text',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   respuesta?: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'UsuarioPk', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'UsuarioPk',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   usuarioPk?: string;
 
   @property({
     type: 'boolean',
-    postgresql: {columnName: 'Active', dataType: 'boolean', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Active',
+      dataType: 'boolean',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   active?: boolean;
 
@@ -51,4 +89,5 @@ export interface RespuestaEncuestaRelations {
   // describe navigational properties here
 }
 
-export type RespuestaEncuestaWithRelations = RespuestaEncuesta & RespuestaEncuestaRelations;
+export type RespuestaEncuestaWithRelations = RespuestaEncuesta &
+  RespuestaEncuestaRelations;
