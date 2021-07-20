@@ -1,77 +1,39 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {
-    idInjection: false,
-    postgresql: {schema: 'public', table: 'RolesPagina'},
-  },
+  settings: {idInjection: false, postgresql: {schema: 'public', table: 'RolesPagina'}}
 })
 export class RolesPagina extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {
-      columnName: 'RolesPaginaid',
-      dataType: 'uuid',
-      dataLength: null,
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'NO',
-    },
+    postgresql: {columnName: 'RolesPaginaid', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   rolesPaginaid: string;
 
   @property({
     type: 'string',
     required: true,
-    postgresql: {
-      columnName: 'PaginaId',
-      dataType: 'uuid',
-      dataLength: null,
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'NO',
-    },
+    postgresql: {columnName: 'PerfilId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
-  paginaId: string;
+  perfilId: string;
 
   @property({
     type: 'string',
-    postgresql: {
-      columnName: 'UsuarioId',
-      dataType: 'uuid',
-      dataLength: null,
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'YES',
-    },
+    postgresql: {columnName: 'UsuarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   usuarioId?: string;
 
   @property({
     type: 'string',
-    postgresql: {
-      columnName: 'Rol',
-      dataType: 'text',
-      dataLength: null,
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'YES',
-    },
+    postgresql: {columnName: 'Rol', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   rol?: string;
 
   @property({
     type: 'boolean',
-    postgresql: {
-      columnName: 'Active',
-      dataType: 'boolean',
-      dataLength: null,
-      dataPrecision: null,
-      dataScale: null,
-      nullable: 'YES',
-    },
+    postgresql: {columnName: 'Active', dataType: 'boolean', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   active?: boolean;
 

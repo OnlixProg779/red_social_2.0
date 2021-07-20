@@ -1,22 +1,25 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'Reaccion'}}
+  settings: {
+    idInjection: false,
+    postgresql: {schema: 'public', table: 'ReaccionRespuestaCom'}
+  }
 })
-export class Reaccion extends Entity {
+export class ReaccionRespuestaCom extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'ReaccionId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {columnName: 'ReaccionRespuestaComId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
-  reaccionId: string;
+  reaccionRespuestaComId: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'ComentarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {columnName: 'RespuestaComentarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
-  comentarioId?: string;
+  respuestaComentarioId?: string;
 
   @property({
     type: 'string',
@@ -36,13 +39,13 @@ export class Reaccion extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<Reaccion>) {
+  constructor(data?: Partial<ReaccionRespuestaCom>) {
     super(data);
   }
 }
 
-export interface ReaccionRelations {
+export interface ReaccionRespuestaComRelations {
   // describe navigational properties here
 }
 
-export type ReaccionWithRelations = Reaccion & ReaccionRelations;
+export type ReaccionRespuestaComWithRelations = ReaccionRespuestaCom & ReaccionRespuestaComRelations;

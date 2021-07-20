@@ -1,40 +1,31 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'Historia'}}
+  settings: {
+    idInjection: false,
+    postgresql: {schema: 'public', table: 'RespuestaComentario'}
+  }
 })
-export class Historia extends Entity {
+export class RespuestaComentario extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'HistoriaId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {columnName: 'RespuestaComentarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
-  historiaId: string;
+  respuestaComentarioId: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'PerfilId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {columnName: 'ComentarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
-  perfilId?: string;
+  comentarioId?: string;
 
   @property({
     type: 'date',
     postgresql: {columnName: 'Date', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   date?: string;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'Imagen', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  imagen?: string;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'Video', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  video?: string;
 
   @property({
     type: 'string',
@@ -54,13 +45,13 @@ export class Historia extends Entity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [prop: string]: any;
 
-  constructor(data?: Partial<Historia>) {
+  constructor(data?: Partial<RespuestaComentario>) {
     super(data);
   }
 }
 
-export interface HistoriaRelations {
+export interface RespuestaComentarioRelations {
   // describe navigational properties here
 }
 
-export type HistoriaWithRelations = Historia & HistoriaRelations;
+export type RespuestaComentarioWithRelations = RespuestaComentario & RespuestaComentarioRelations;
