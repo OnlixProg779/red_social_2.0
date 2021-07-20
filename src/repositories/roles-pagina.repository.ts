@@ -5,7 +5,7 @@ import {RolesPagina, RolesPaginaRelations} from '../models';
 
 export class RolesPaginaRepository extends DefaultCrudRepository<
   RolesPagina,
-  typeof RolesPagina.prototype.rolesPaginaId,
+  typeof RolesPagina.prototype.rolesPaginaid,
   RolesPaginaRelations
 > {
   constructor(

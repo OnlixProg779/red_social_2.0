@@ -5,7 +5,7 @@ import {MarketPlace, MarketPlaceRelations} from '../models';
 
 export class MarketPlaceRepository extends DefaultCrudRepository<
   MarketPlace,
-  typeof MarketPlace.prototype.marketplaceId,
+  typeof MarketPlace.prototype.marketPlaceId,
   MarketPlaceRelations
 > {
   constructor(
