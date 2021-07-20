@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Usuario} from './usuario.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Notificacion'}}
@@ -11,14 +12,6 @@ export class Notificacion extends Entity {
     postgresql: {columnName: 'NotificacionId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   notificacionId: string;
-
-  @property({
-    type: 'string',
-    required: true,
-    postgresql: {columnName: 'UsuarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
-  })
-  usuarioId: string;
-
   @property({
     type: 'string',
     postgresql: {columnName: 'Record', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -43,6 +36,8 @@ export class Notificacion extends Entity {
   })
   active?: boolean;
 
+  @belongsTo(() => Usuario)
+  usuarioId: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data

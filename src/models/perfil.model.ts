@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {MarketPlace} from './market-place.model';
+import {Publicacion} from './publicacion.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Perfil'}}
@@ -60,6 +62,11 @@ export class Perfil extends Entity {
   })
   tipo?: string;
 
+  @hasMany(() => MarketPlace)
+  marketPlaces: MarketPlace[];
+
+  @hasMany(() => Publicacion)
+  publicaciones: Publicacion[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

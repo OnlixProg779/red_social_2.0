@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Notificacion} from './notificacion.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Usuario'}}
@@ -36,6 +37,8 @@ export class Usuario extends Entity {
   })
   active?: boolean;
 
+  @hasMany(() => Notificacion)
+  notificaciones: Notificacion[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

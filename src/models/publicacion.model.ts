@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Perfil} from './perfil.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Publicacion'}}
@@ -11,13 +12,6 @@ export class Publicacion extends Entity {
     postgresql: {columnName: 'PublicacionId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   publicacionId: string;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'PerfilId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  perfilId?: string;
-
   @property({
     type: 'string',
     postgresql: {columnName: 'PerfilPublicaPk', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -54,6 +48,8 @@ export class Publicacion extends Entity {
   })
   active?: boolean;
 
+  @belongsTo(() => Perfil)
+  perfilId: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data
