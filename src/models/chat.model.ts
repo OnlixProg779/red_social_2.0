@@ -1,5 +1,7 @@
 import {Entity, model, property, hasMany} from '@loopback/repository';
 import {ReaccionChat} from './reaccion-chat.model';
+import {Usuario} from './usuario.model';
+import {UsuarioHasChat} from './usuario-has-chat.model';
 
 @model({settings: {idInjection: false, postgresql: {schema: 'public', table: 'Chat'}}})
 export class Chat extends Entity {
@@ -43,6 +45,9 @@ export class Chat extends Entity {
 
   @hasMany(() => ReaccionChat)
   reaccionChats: ReaccionChat[];
+
+  @hasMany(() => Usuario, {through: {model: () => UsuarioHasChat}})
+  usuarios: Usuario[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

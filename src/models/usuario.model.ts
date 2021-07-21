@@ -1,6 +1,20 @@
 import {Entity, model, property, hasMany} from '@loopback/repository';
 import {Notificacion} from './notificacion.model';
 import {UsuarioClaim} from './usuario-claim.model';
+import {Grupo} from './grupo.model';
+import {Miembro} from './miembro.model';
+import {Evento} from './evento.model';
+import {Participante} from './participante.model';
+import {Chat} from './chat.model';
+import {UsuarioHasChat} from './usuario-has-chat.model';
+import {ListaBloqueados} from './lista-bloqueados.model';
+import {ListaBloqueadosUsuario} from './lista-bloqueados-usuario.model';
+import {ListaSeguidores} from './lista-seguidores.model';
+import {ListaSeguidoresUsuario} from './lista-seguidores-usuario.model';
+import {ListaAmistades} from './lista-amistades.model';
+import {ListaAmistadesUsuario} from './lista-amistades-usuario.model';
+import {Perfil} from './perfil.model';
+import {RolesPagina} from './roles-pagina.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Usuario'}}
@@ -43,6 +57,27 @@ export class Usuario extends Entity {
 
   @hasMany(() => UsuarioClaim)
   usuarioClaims: UsuarioClaim[];
+
+  @hasMany(() => Grupo, {through: {model: () => Miembro}})
+  grupos: Grupo[];
+
+  @hasMany(() => Evento, {through: {model: () => Participante}})
+  eventos: Evento[];
+
+  @hasMany(() => Chat, {through: {model: () => UsuarioHasChat}})
+  chats: Chat[];
+
+  @hasMany(() => ListaBloqueados, {through: {model: () => ListaBloqueadosUsuario}})
+  listaBloqueados: ListaBloqueados[];
+
+  @hasMany(() => ListaSeguidores, {through: {model: () => ListaSeguidoresUsuario}})
+  listaSeguidores: ListaSeguidores[];
+
+  @hasMany(() => ListaAmistades, {through: {model: () => ListaAmistadesUsuario}})
+  listaAmistades: ListaAmistades[];
+
+  @hasMany(() => Perfil, {through: {model: () => RolesPagina}})
+  perfils: Perfil[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

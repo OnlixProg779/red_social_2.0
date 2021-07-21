@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Usuario} from './usuario.model';
+import {ListaBloqueadosUsuario} from './lista-bloqueados-usuario.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'ListaBloqueados'}}
@@ -18,6 +20,8 @@ export class ListaBloqueados extends Entity {
   })
   owner?: string;
 
+  @hasMany(() => Usuario, {through: {model: () => ListaBloqueadosUsuario}})
+  usuarios: Usuario[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
