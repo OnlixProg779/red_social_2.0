@@ -1,4 +1,7 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany, belongsTo} from '@loopback/repository';
+import {ReaccionHistoria} from './reaccion-historia.model';
+import {EtiquetaHistoria} from './etiqueta-historia.model';
+import {Perfil} from './perfil.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Historia'}}
@@ -11,13 +14,6 @@ export class Historia extends Entity {
     postgresql: {columnName: 'HistoriaId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   historiaId: string;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'PerfilId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  perfilId?: string;
-
   @property({
     type: 'date',
     postgresql: {columnName: 'Date', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -48,6 +44,14 @@ export class Historia extends Entity {
   })
   active?: boolean;
 
+  @hasMany(() => ReaccionHistoria)
+  reaccionHistorias: ReaccionHistoria[];
+
+  @hasMany(() => EtiquetaHistoria)
+  etiquetaHistorias: EtiquetaHistoria[];
+
+  @belongsTo(() => Perfil)
+  perfilId: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data

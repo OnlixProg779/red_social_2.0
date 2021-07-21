@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Usuario} from './usuario.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'UsuarioClaim'}}
@@ -11,14 +12,6 @@ export class UsuarioClaim extends Entity {
     postgresql: {columnName: 'UsuarioClaimId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   usuarioClaimId: string;
-
-  @property({
-    type: 'string',
-    required: true,
-    postgresql: {columnName: 'UsuarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
-  })
-  usuarioId: string;
-
   @property({
     type: 'string',
     required: true,
@@ -33,6 +26,8 @@ export class UsuarioClaim extends Entity {
   })
   claimValue: string;
 
+  @belongsTo(() => Usuario)
+  usuarioId: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data

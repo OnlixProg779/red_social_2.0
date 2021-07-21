@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Chat} from './chat.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'ReaccionChat'}}
@@ -11,13 +12,6 @@ export class ReaccionChat extends Entity {
     postgresql: {columnName: 'ReaccionChatId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   reaccionChatId: string;
-
-  @property({
-    type: 'string',
-    postgresql: {columnName: 'ChatId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
-  })
-  chatId?: string;
-
   @property({
     type: 'string',
     postgresql: {columnName: 'ReaccionText', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -30,6 +24,8 @@ export class ReaccionChat extends Entity {
   })
   active?: boolean;
 
+  @belongsTo(() => Chat)
+  chatId: string;
   // Define well-known properties here
 
   // Indexer property to allow additional data
