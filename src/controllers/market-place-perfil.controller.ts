@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  MarketPlace,
-  Perfil,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {MarketPlace, Perfil} from '../models';
 import {MarketPlaceRepository} from '../repositories';
 
 export class MarketPlacePerfilController {
   constructor(
     @repository(MarketPlaceRepository)
     public marketPlaceRepository: MarketPlaceRepository,
-  ) { }
+  ) {}
 
   @get('/market-places/{id}/perfil', {
     responses: {

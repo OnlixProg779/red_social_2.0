@@ -1,26 +1,50 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
 import {Historia} from './historia.model';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'EtiquetaHistoria'}}
+  settings: {
+    idInjection: false,
+    postgresql: {schema: 'public', table: 'EtiquetaHistoria'},
+  },
 })
 export class EtiquetaHistoria extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'EtiquetaHistoriaId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'EtiquetaHistoriaId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   etiquetaHistoriaId: string;
   @property({
     type: 'string',
-    postgresql: {columnName: 'PerfilPk', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'PerfilPk',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   perfilPk?: string;
 
   @property({
     type: 'boolean',
-    postgresql: {columnName: 'Active', dataType: 'boolean', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Active',
+      dataType: 'boolean',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   active?: boolean;
 
@@ -41,4 +65,5 @@ export interface EtiquetaHistoriaRelations {
   // describe navigational properties here
 }
 
-export type EtiquetaHistoriaWithRelations = EtiquetaHistoria & EtiquetaHistoriaRelations;
+export type EtiquetaHistoriaWithRelations = EtiquetaHistoria &
+  EtiquetaHistoriaRelations;

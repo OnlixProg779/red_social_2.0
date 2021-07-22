@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  EtiquetaHistoria,
-  Historia,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {EtiquetaHistoria, Historia} from '../models';
 import {EtiquetaHistoriaRepository} from '../repositories';
 
 export class EtiquetaHistoriaHistoriaController {
   constructor(
     @repository(EtiquetaHistoriaRepository)
     public etiquetaHistoriaRepository: EtiquetaHistoriaRepository,
-  ) { }
+  ) {}
 
   @get('/etiqueta-historias/{id}/historia', {
     responses: {
@@ -31,7 +22,8 @@ export class EtiquetaHistoriaHistoriaController {
     },
   })
   async getHistoria(
-    @param.path.string('id') id: typeof EtiquetaHistoria.prototype.etiquetaHistoriaId,
+    @param.path.string('id')
+    id: typeof EtiquetaHistoria.prototype.etiquetaHistoriaId,
   ): Promise<Historia> {
     return this.etiquetaHistoriaRepository.historia(id);
   }

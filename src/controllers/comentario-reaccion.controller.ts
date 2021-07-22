@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Comentario,
-  Reaccion,
-} from '../models';
+import {Comentario, Reaccion} from '../models';
 import {ComentarioRepository} from '../repositories';
 
 export class ComentarioReaccionController {
   constructor(
-    @repository(ComentarioRepository) protected comentarioRepository: ComentarioRepository,
-  ) { }
+    @repository(ComentarioRepository)
+    protected comentarioRepository: ComentarioRepository,
+  ) {}
 
   @get('/comentarios/{id}/reaccions', {
     responses: {
@@ -61,11 +59,12 @@ export class ComentarioReaccionController {
           schema: getModelSchemaRef(Reaccion, {
             title: 'NewReaccionInComentario',
             exclude: ['reaccionId'],
-            optional: ['comentarioId']
+            optional: ['comentarioId'],
           }),
         },
       },
-    }) reaccion: Omit<Reaccion, 'reaccionId'>,
+    })
+    reaccion: Omit<Reaccion, 'reaccionId'>,
   ): Promise<Reaccion> {
     return this.comentarioRepository.reaccions(id).create(reaccion);
   }
@@ -88,7 +87,8 @@ export class ComentarioReaccionController {
       },
     })
     reaccion: Partial<Reaccion>,
-    @param.query.object('where', getWhereSchemaFor(Reaccion)) where?: Where<Reaccion>,
+    @param.query.object('where', getWhereSchemaFor(Reaccion))
+    where?: Where<Reaccion>,
   ): Promise<Count> {
     return this.comentarioRepository.reaccions(id).patch(reaccion, where);
   }
@@ -103,7 +103,8 @@ export class ComentarioReaccionController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Reaccion)) where?: Where<Reaccion>,
+    @param.query.object('where', getWhereSchemaFor(Reaccion))
+    where?: Where<Reaccion>,
   ): Promise<Count> {
     return this.comentarioRepository.reaccions(id).delete(where);
   }

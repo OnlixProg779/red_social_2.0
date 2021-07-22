@@ -15,24 +15,26 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  RespuestaComentario,
-  ReaccionRespuestaCom,
-} from '../models';
+import {ReaccionRespuestaCom, RespuestaComentario} from '../models';
 import {RespuestaComentarioRepository} from '../repositories';
 
 export class RespuestaComentarioReaccionRespuestaComController {
   constructor(
-    @repository(RespuestaComentarioRepository) protected respuestaComentarioRepository: RespuestaComentarioRepository,
-  ) { }
+    @repository(RespuestaComentarioRepository)
+    protected respuestaComentarioRepository: RespuestaComentarioRepository,
+  ) {}
 
   @get('/respuesta-comentarios/{id}/reaccion-respuesta-coms', {
     responses: {
       '200': {
-        description: 'Array of RespuestaComentario has many ReaccionRespuestaCom',
+        description:
+          'Array of RespuestaComentario has many ReaccionRespuestaCom',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(ReaccionRespuestaCom)},
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(ReaccionRespuestaCom),
+            },
           },
         },
       },
@@ -42,38 +44,47 @@ export class RespuestaComentarioReaccionRespuestaComController {
     @param.path.string('id') id: string,
     @param.query.object('filter') filter?: Filter<ReaccionRespuestaCom>,
   ): Promise<ReaccionRespuestaCom[]> {
-    return this.respuestaComentarioRepository.reaccionRespuestaComs(id).find(filter);
+    return this.respuestaComentarioRepository
+      .reaccionRespuestaComs(id)
+      .find(filter);
   }
 
   @post('/respuesta-comentarios/{id}/reaccion-respuesta-coms', {
     responses: {
       '200': {
         description: 'RespuestaComentario model instance',
-        content: {'application/json': {schema: getModelSchemaRef(ReaccionRespuestaCom)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(ReaccionRespuestaCom)},
+        },
       },
     },
   })
   async create(
-    @param.path.string('id') id: typeof RespuestaComentario.prototype.respuestaComentarioId,
+    @param.path.string('id')
+    id: typeof RespuestaComentario.prototype.respuestaComentarioId,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(ReaccionRespuestaCom, {
             title: 'NewReaccionRespuestaComInRespuestaComentario',
             exclude: ['reaccionRespuestaComId'],
-            optional: ['respuestaComentarioId']
+            optional: ['respuestaComentarioId'],
           }),
         },
       },
-    }) reaccionRespuestaCom: Omit<ReaccionRespuestaCom, 'reaccionRespuestaComId'>,
+    })
+    reaccionRespuestaCom: Omit<ReaccionRespuestaCom, 'reaccionRespuestaComId'>,
   ): Promise<ReaccionRespuestaCom> {
-    return this.respuestaComentarioRepository.reaccionRespuestaComs(id).create(reaccionRespuestaCom);
+    return this.respuestaComentarioRepository
+      .reaccionRespuestaComs(id)
+      .create(reaccionRespuestaCom);
   }
 
   @patch('/respuesta-comentarios/{id}/reaccion-respuesta-coms', {
     responses: {
       '200': {
-        description: 'RespuestaComentario.ReaccionRespuestaCom PATCH success count',
+        description:
+          'RespuestaComentario.ReaccionRespuestaCom PATCH success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -88,23 +99,30 @@ export class RespuestaComentarioReaccionRespuestaComController {
       },
     })
     reaccionRespuestaCom: Partial<ReaccionRespuestaCom>,
-    @param.query.object('where', getWhereSchemaFor(ReaccionRespuestaCom)) where?: Where<ReaccionRespuestaCom>,
+    @param.query.object('where', getWhereSchemaFor(ReaccionRespuestaCom))
+    where?: Where<ReaccionRespuestaCom>,
   ): Promise<Count> {
-    return this.respuestaComentarioRepository.reaccionRespuestaComs(id).patch(reaccionRespuestaCom, where);
+    return this.respuestaComentarioRepository
+      .reaccionRespuestaComs(id)
+      .patch(reaccionRespuestaCom, where);
   }
 
   @del('/respuesta-comentarios/{id}/reaccion-respuesta-coms', {
     responses: {
       '200': {
-        description: 'RespuestaComentario.ReaccionRespuestaCom DELETE success count',
+        description:
+          'RespuestaComentario.ReaccionRespuestaCom DELETE success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(ReaccionRespuestaCom)) where?: Where<ReaccionRespuestaCom>,
+    @param.query.object('where', getWhereSchemaFor(ReaccionRespuestaCom))
+    where?: Where<ReaccionRespuestaCom>,
   ): Promise<Count> {
-    return this.respuestaComentarioRepository.reaccionRespuestaComs(id).delete(where);
+    return this.respuestaComentarioRepository
+      .reaccionRespuestaComs(id)
+      .delete(where);
   }
 }

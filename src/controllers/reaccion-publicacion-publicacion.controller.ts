@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  ReaccionPublicacion,
-  Publicacion,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Publicacion, ReaccionPublicacion} from '../models';
 import {ReaccionPublicacionRepository} from '../repositories';
 
 export class ReaccionPublicacionPublicacionController {
   constructor(
     @repository(ReaccionPublicacionRepository)
     public reaccionPublicacionRepository: ReaccionPublicacionRepository,
-  ) { }
+  ) {}
 
   @get('/reaccion-publicacions/{id}/publicacion', {
     responses: {
@@ -31,7 +22,8 @@ export class ReaccionPublicacionPublicacionController {
     },
   })
   async getPublicacion(
-    @param.path.string('id') id: typeof ReaccionPublicacion.prototype.reaccionPublicacionId,
+    @param.path.string('id')
+    id: typeof ReaccionPublicacion.prototype.reaccionPublicacionId,
   ): Promise<Publicacion> {
     return this.reaccionPublicacionRepository.publicacion(id);
   }

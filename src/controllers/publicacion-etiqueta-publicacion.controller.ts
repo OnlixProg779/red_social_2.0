@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Publicacion,
-  EtiquetaPublicacion,
-} from '../models';
+import {EtiquetaPublicacion, Publicacion} from '../models';
 import {PublicacionRepository} from '../repositories';
 
 export class PublicacionEtiquetaPublicacionController {
   constructor(
-    @repository(PublicacionRepository) protected publicacionRepository: PublicacionRepository,
-  ) { }
+    @repository(PublicacionRepository)
+    protected publicacionRepository: PublicacionRepository,
+  ) {}
 
   @get('/publicacions/{id}/etiqueta-publicacions', {
     responses: {
@@ -32,7 +30,10 @@ export class PublicacionEtiquetaPublicacionController {
         description: 'Array of Publicacion has many EtiquetaPublicacion',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(EtiquetaPublicacion)},
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(EtiquetaPublicacion),
+            },
           },
         },
       },
@@ -49,7 +50,9 @@ export class PublicacionEtiquetaPublicacionController {
     responses: {
       '200': {
         description: 'Publicacion model instance',
-        content: {'application/json': {schema: getModelSchemaRef(EtiquetaPublicacion)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(EtiquetaPublicacion)},
+        },
       },
     },
   })
@@ -61,13 +64,16 @@ export class PublicacionEtiquetaPublicacionController {
           schema: getModelSchemaRef(EtiquetaPublicacion, {
             title: 'NewEtiquetaPublicacionInPublicacion',
             exclude: ['etiquetaPublicacionId'],
-            optional: ['publicacionId']
+            optional: ['publicacionId'],
           }),
         },
       },
-    }) etiquetaPublicacion: Omit<EtiquetaPublicacion, 'etiquetaPublicacionId'>,
+    })
+    etiquetaPublicacion: Omit<EtiquetaPublicacion, 'etiquetaPublicacionId'>,
   ): Promise<EtiquetaPublicacion> {
-    return this.publicacionRepository.etiquetasDePublicacion(id).create(etiquetaPublicacion);
+    return this.publicacionRepository
+      .etiquetasDePublicacion(id)
+      .create(etiquetaPublicacion);
   }
 
   @patch('/publicacions/{id}/etiqueta-publicacions', {
@@ -88,9 +94,12 @@ export class PublicacionEtiquetaPublicacionController {
       },
     })
     etiquetaPublicacion: Partial<EtiquetaPublicacion>,
-    @param.query.object('where', getWhereSchemaFor(EtiquetaPublicacion)) where?: Where<EtiquetaPublicacion>,
+    @param.query.object('where', getWhereSchemaFor(EtiquetaPublicacion))
+    where?: Where<EtiquetaPublicacion>,
   ): Promise<Count> {
-    return this.publicacionRepository.etiquetasDePublicacion(id).patch(etiquetaPublicacion, where);
+    return this.publicacionRepository
+      .etiquetasDePublicacion(id)
+      .patch(etiquetaPublicacion, where);
   }
 
   @del('/publicacions/{id}/etiqueta-publicacions', {
@@ -103,7 +112,8 @@ export class PublicacionEtiquetaPublicacionController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(EtiquetaPublicacion)) where?: Where<EtiquetaPublicacion>,
+    @param.query.object('where', getWhereSchemaFor(EtiquetaPublicacion))
+    where?: Where<EtiquetaPublicacion>,
   ): Promise<Count> {
     return this.publicacionRepository.etiquetasDePublicacion(id).delete(where);
   }

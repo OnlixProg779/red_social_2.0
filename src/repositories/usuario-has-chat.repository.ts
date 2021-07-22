@@ -9,7 +9,8 @@ export class UsuarioHasChatRepository extends DefaultCrudRepository<
   UsuarioHasChatRelations
 > {
   constructor(
-    @inject('datasources.RedSocialContext') dataSource: RedSocialContextDataSource,
+    @inject('datasources.RedSocialContext')
+    dataSource: RedSocialContextDataSource,
   ) {
     super(UsuarioHasChat, dataSource);
   }

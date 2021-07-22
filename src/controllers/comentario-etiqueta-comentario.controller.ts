@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Comentario,
-  EtiquetaComentario,
-} from '../models';
+import {Comentario, EtiquetaComentario} from '../models';
 import {ComentarioRepository} from '../repositories';
 
 export class ComentarioEtiquetaComentarioController {
   constructor(
-    @repository(ComentarioRepository) protected comentarioRepository: ComentarioRepository,
-  ) { }
+    @repository(ComentarioRepository)
+    protected comentarioRepository: ComentarioRepository,
+  ) {}
 
   @get('/comentarios/{id}/etiqueta-comentarios', {
     responses: {
@@ -32,7 +30,10 @@ export class ComentarioEtiquetaComentarioController {
         description: 'Array of Comentario has many EtiquetaComentario',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(EtiquetaComentario)},
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(EtiquetaComentario),
+            },
           },
         },
       },
@@ -49,7 +50,9 @@ export class ComentarioEtiquetaComentarioController {
     responses: {
       '200': {
         description: 'Comentario model instance',
-        content: {'application/json': {schema: getModelSchemaRef(EtiquetaComentario)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(EtiquetaComentario)},
+        },
       },
     },
   })
@@ -61,13 +64,16 @@ export class ComentarioEtiquetaComentarioController {
           schema: getModelSchemaRef(EtiquetaComentario, {
             title: 'NewEtiquetaComentarioInComentario',
             exclude: ['etiquetaComentarioId'],
-            optional: ['comentarioId']
+            optional: ['comentarioId'],
           }),
         },
       },
-    }) etiquetaComentario: Omit<EtiquetaComentario, 'etiquetaComentarioId'>,
+    })
+    etiquetaComentario: Omit<EtiquetaComentario, 'etiquetaComentarioId'>,
   ): Promise<EtiquetaComentario> {
-    return this.comentarioRepository.etiquetaComentarios(id).create(etiquetaComentario);
+    return this.comentarioRepository
+      .etiquetaComentarios(id)
+      .create(etiquetaComentario);
   }
 
   @patch('/comentarios/{id}/etiqueta-comentarios', {
@@ -88,9 +94,12 @@ export class ComentarioEtiquetaComentarioController {
       },
     })
     etiquetaComentario: Partial<EtiquetaComentario>,
-    @param.query.object('where', getWhereSchemaFor(EtiquetaComentario)) where?: Where<EtiquetaComentario>,
+    @param.query.object('where', getWhereSchemaFor(EtiquetaComentario))
+    where?: Where<EtiquetaComentario>,
   ): Promise<Count> {
-    return this.comentarioRepository.etiquetaComentarios(id).patch(etiquetaComentario, where);
+    return this.comentarioRepository
+      .etiquetaComentarios(id)
+      .patch(etiquetaComentario, where);
   }
 
   @del('/comentarios/{id}/etiqueta-comentarios', {
@@ -103,7 +112,8 @@ export class ComentarioEtiquetaComentarioController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(EtiquetaComentario)) where?: Where<EtiquetaComentario>,
+    @param.query.object('where', getWhereSchemaFor(EtiquetaComentario))
+    where?: Where<EtiquetaComentario>,
   ): Promise<Count> {
     return this.comentarioRepository.etiquetaComentarios(id).delete(where);
   }

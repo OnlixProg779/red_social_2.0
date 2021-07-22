@@ -15,16 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Perfil,
-  MarketPlace,
-} from '../models';
+import {MarketPlace, Perfil} from '../models';
 import {PerfilRepository} from '../repositories';
 
 export class PerfilMarketPlaceController {
   constructor(
     @repository(PerfilRepository) protected perfilRepository: PerfilRepository,
-  ) { }
+  ) {}
 
   @get('/perfils/{id}/market-places', {
     responses: {
@@ -61,11 +58,12 @@ export class PerfilMarketPlaceController {
           schema: getModelSchemaRef(MarketPlace, {
             title: 'NewMarketPlaceInPerfil',
             exclude: ['marketPlaceId'],
-            optional: ['perfilId']
+            optional: ['perfilId'],
           }),
         },
       },
-    }) marketPlace: Omit<MarketPlace, 'marketPlaceId'>,
+    })
+    marketPlace: Omit<MarketPlace, 'marketPlaceId'>,
   ): Promise<MarketPlace> {
     return this.perfilRepository.marketPlaces(id).create(marketPlace);
   }
@@ -88,7 +86,8 @@ export class PerfilMarketPlaceController {
       },
     })
     marketPlace: Partial<MarketPlace>,
-    @param.query.object('where', getWhereSchemaFor(MarketPlace)) where?: Where<MarketPlace>,
+    @param.query.object('where', getWhereSchemaFor(MarketPlace))
+    where?: Where<MarketPlace>,
   ): Promise<Count> {
     return this.perfilRepository.marketPlaces(id).patch(marketPlace, where);
   }
@@ -103,7 +102,8 @@ export class PerfilMarketPlaceController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(MarketPlace)) where?: Where<MarketPlace>,
+    @param.query.object('where', getWhereSchemaFor(MarketPlace))
+    where?: Where<MarketPlace>,
   ): Promise<Count> {
     return this.perfilRepository.marketPlaces(id).delete(where);
   }

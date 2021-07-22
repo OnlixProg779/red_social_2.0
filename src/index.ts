@@ -1,4 +1,4 @@
-import {ApplicationConfig, ApiRedSocialApplication} from './application';
+import {ApiRedSocialApplication, ApplicationConfig} from './application';
 
 export * from './application';
 

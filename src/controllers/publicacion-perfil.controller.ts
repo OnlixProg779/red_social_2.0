@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  Publicacion,
-  Perfil,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Perfil, Publicacion} from '../models';
 import {PublicacionRepository} from '../repositories';
 
 export class PublicacionPerfilController {
   constructor(
     @repository(PublicacionRepository)
     public publicacionRepository: PublicacionRepository,
-  ) { }
+  ) {}
 
   @get('/publicacions/{id}/perfil', {
     responses: {

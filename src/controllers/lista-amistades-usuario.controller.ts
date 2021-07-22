@@ -5,7 +5,7 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -15,22 +15,20 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-ListaAmistades,
-ListaAmistadesUsuario,
-Usuario,
-} from '../models';
+import {ListaAmistades, Usuario} from '../models';
 import {ListaAmistadesRepository} from '../repositories';
 
 export class ListaAmistadesUsuarioController {
   constructor(
-    @repository(ListaAmistadesRepository) protected listaAmistadesRepository: ListaAmistadesRepository,
-  ) { }
+    @repository(ListaAmistadesRepository)
+    protected listaAmistadesRepository: ListaAmistadesRepository,
+  ) {}
 
   @get('/lista-amistades/{id}/usuarios', {
     responses: {
       '200': {
-        description: 'Array of ListaAmistades has many Usuario through ListaAmistadesUsuario',
+        description:
+          'Array of ListaAmistades has many Usuario through ListaAmistadesUsuario',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(Usuario)},
@@ -55,7 +53,8 @@ export class ListaAmistadesUsuarioController {
     },
   })
   async create(
-    @param.path.string('id') id: typeof ListaAmistades.prototype.listaAmistadesId,
+    @param.path.string('id')
+    id: typeof ListaAmistades.prototype.listaAmistadesId,
     @requestBody({
       content: {
         'application/json': {
@@ -65,7 +64,8 @@ export class ListaAmistadesUsuarioController {
           }),
         },
       },
-    }) usuario: Omit<Usuario, 'usuarioId'>,
+    })
+    usuario: Omit<Usuario, 'usuarioId'>,
   ): Promise<Usuario> {
     return this.listaAmistadesRepository.usuarios(id).create(usuario);
   }
@@ -88,7 +88,8 @@ export class ListaAmistadesUsuarioController {
       },
     })
     usuario: Partial<Usuario>,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.listaAmistadesRepository.usuarios(id).patch(usuario, where);
   }
@@ -103,7 +104,8 @@ export class ListaAmistadesUsuarioController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.listaAmistadesRepository.usuarios(id).delete(where);
   }

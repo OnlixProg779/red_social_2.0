@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  Notificacion,
-  Usuario,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Notificacion, Usuario} from '../models';
 import {NotificacionRepository} from '../repositories';
 
 export class NotificacionUsuarioController {
   constructor(
     @repository(NotificacionRepository)
     public notificacionRepository: NotificacionRepository,
-  ) { }
+  ) {}
 
   @get('/notificacions/{id}/usuario', {
     responses: {

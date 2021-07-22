@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Historia,
-  ReaccionHistoria,
-} from '../models';
+import {Historia, ReaccionHistoria} from '../models';
 import {HistoriaRepository} from '../repositories';
 
 export class HistoriaReaccionHistoriaController {
   constructor(
-    @repository(HistoriaRepository) protected historiaRepository: HistoriaRepository,
-  ) { }
+    @repository(HistoriaRepository)
+    protected historiaRepository: HistoriaRepository,
+  ) {}
 
   @get('/historias/{id}/reaccion-historias', {
     responses: {
@@ -49,7 +47,9 @@ export class HistoriaReaccionHistoriaController {
     responses: {
       '200': {
         description: 'Historia model instance',
-        content: {'application/json': {schema: getModelSchemaRef(ReaccionHistoria)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(ReaccionHistoria)},
+        },
       },
     },
   })
@@ -61,13 +61,16 @@ export class HistoriaReaccionHistoriaController {
           schema: getModelSchemaRef(ReaccionHistoria, {
             title: 'NewReaccionHistoriaInHistoria',
             exclude: ['reaccionHistoriaId'],
-            optional: ['historiaId']
+            optional: ['historiaId'],
           }),
         },
       },
-    }) reaccionHistoria: Omit<ReaccionHistoria, 'reaccionHistoriaId'>,
+    })
+    reaccionHistoria: Omit<ReaccionHistoria, 'reaccionHistoriaId'>,
   ): Promise<ReaccionHistoria> {
-    return this.historiaRepository.reaccionHistorias(id).create(reaccionHistoria);
+    return this.historiaRepository
+      .reaccionHistorias(id)
+      .create(reaccionHistoria);
   }
 
   @patch('/historias/{id}/reaccion-historias', {
@@ -88,9 +91,12 @@ export class HistoriaReaccionHistoriaController {
       },
     })
     reaccionHistoria: Partial<ReaccionHistoria>,
-    @param.query.object('where', getWhereSchemaFor(ReaccionHistoria)) where?: Where<ReaccionHistoria>,
+    @param.query.object('where', getWhereSchemaFor(ReaccionHistoria))
+    where?: Where<ReaccionHistoria>,
   ): Promise<Count> {
-    return this.historiaRepository.reaccionHistorias(id).patch(reaccionHistoria, where);
+    return this.historiaRepository
+      .reaccionHistorias(id)
+      .patch(reaccionHistoria, where);
   }
 
   @del('/historias/{id}/reaccion-historias', {
@@ -103,7 +109,8 @@ export class HistoriaReaccionHistoriaController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(ReaccionHistoria)) where?: Where<ReaccionHistoria>,
+    @param.query.object('where', getWhereSchemaFor(ReaccionHistoria))
+    where?: Where<ReaccionHistoria>,
   ): Promise<Count> {
     return this.historiaRepository.reaccionHistorias(id).delete(where);
   }

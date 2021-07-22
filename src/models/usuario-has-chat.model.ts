@@ -1,34 +1,65 @@
 import {Entity, model, property} from '@loopback/repository';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'Usuario_has_Chat'}}
+  settings: {
+    idInjection: false,
+    postgresql: {schema: 'public', table: 'Usuario_has_Chat'},
+  },
 })
 export class UsuarioHasChat extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'Usuario_has_ChatId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'Usuario_has_ChatId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   usuarioHasChatId: string;
 
   @property({
     type: 'string',
     required: true,
-    postgresql: {columnName: 'UsuarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'UsuarioId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   usuarioId: string;
 
   @property({
     type: 'string',
     required: true,
-    postgresql: {columnName: 'ChatId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'ChatId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   chatId: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'UsuarioRecivedId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'UsuarioRecivedId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   usuarioRecivedId?: string;
 
@@ -47,4 +78,5 @@ export interface UsuarioHasChatRelations {
   // describe navigational properties here
 }
 
-export type UsuarioHasChatWithRelations = UsuarioHasChat & UsuarioHasChatRelations;
+export type UsuarioHasChatWithRelations = UsuarioHasChat &
+  UsuarioHasChatRelations;

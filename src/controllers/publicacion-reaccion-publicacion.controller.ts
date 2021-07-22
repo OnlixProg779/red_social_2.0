@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Publicacion,
-  ReaccionPublicacion,
-} from '../models';
+import {Publicacion, ReaccionPublicacion} from '../models';
 import {PublicacionRepository} from '../repositories';
 
 export class PublicacionReaccionPublicacionController {
   constructor(
-    @repository(PublicacionRepository) protected publicacionRepository: PublicacionRepository,
-  ) { }
+    @repository(PublicacionRepository)
+    protected publicacionRepository: PublicacionRepository,
+  ) {}
 
   @get('/publicacions/{id}/reaccion-publicacions', {
     responses: {
@@ -32,7 +30,10 @@ export class PublicacionReaccionPublicacionController {
         description: 'Array of Publicacion has many ReaccionPublicacion',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(ReaccionPublicacion)},
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(ReaccionPublicacion),
+            },
           },
         },
       },
@@ -49,7 +50,9 @@ export class PublicacionReaccionPublicacionController {
     responses: {
       '200': {
         description: 'Publicacion model instance',
-        content: {'application/json': {schema: getModelSchemaRef(ReaccionPublicacion)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(ReaccionPublicacion)},
+        },
       },
     },
   })
@@ -61,13 +64,16 @@ export class PublicacionReaccionPublicacionController {
           schema: getModelSchemaRef(ReaccionPublicacion, {
             title: 'NewReaccionPublicacionInPublicacion',
             exclude: ['reaccionPublicacionId'],
-            optional: ['publicacionId']
+            optional: ['publicacionId'],
           }),
         },
       },
-    }) reaccionPublicacion: Omit<ReaccionPublicacion, 'reaccionPublicacionId'>,
+    })
+    reaccionPublicacion: Omit<ReaccionPublicacion, 'reaccionPublicacionId'>,
   ): Promise<ReaccionPublicacion> {
-    return this.publicacionRepository.reaccionPublicacions(id).create(reaccionPublicacion);
+    return this.publicacionRepository
+      .reaccionPublicacions(id)
+      .create(reaccionPublicacion);
   }
 
   @patch('/publicacions/{id}/reaccion-publicacions', {
@@ -88,9 +94,12 @@ export class PublicacionReaccionPublicacionController {
       },
     })
     reaccionPublicacion: Partial<ReaccionPublicacion>,
-    @param.query.object('where', getWhereSchemaFor(ReaccionPublicacion)) where?: Where<ReaccionPublicacion>,
+    @param.query.object('where', getWhereSchemaFor(ReaccionPublicacion))
+    where?: Where<ReaccionPublicacion>,
   ): Promise<Count> {
-    return this.publicacionRepository.reaccionPublicacions(id).patch(reaccionPublicacion, where);
+    return this.publicacionRepository
+      .reaccionPublicacions(id)
+      .patch(reaccionPublicacion, where);
   }
 
   @del('/publicacions/{id}/reaccion-publicacions', {
@@ -103,7 +112,8 @@ export class PublicacionReaccionPublicacionController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(ReaccionPublicacion)) where?: Where<ReaccionPublicacion>,
+    @param.query.object('where', getWhereSchemaFor(ReaccionPublicacion))
+    where?: Where<ReaccionPublicacion>,
   ): Promise<Count> {
     return this.publicacionRepository.reaccionPublicacions(id).delete(where);
   }

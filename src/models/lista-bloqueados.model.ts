@@ -1,22 +1,39 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
-import {Usuario} from './usuario.model';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {ListaBloqueadosUsuario} from './lista-bloqueados-usuario.model';
+import {Usuario} from './usuario.model';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'ListaBloqueados'}}
+  settings: {
+    idInjection: false,
+    postgresql: {schema: 'public', table: 'ListaBloqueados'},
+  },
 })
 export class ListaBloqueados extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'ListaBloqueadosId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'ListaBloqueadosId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   listaBloqueadosId: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'Owner', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Owner',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   owner?: string;
 
@@ -37,4 +54,5 @@ export interface ListaBloqueadosRelations {
   // describe navigational properties here
 }
 
-export type ListaBloqueadosWithRelations = ListaBloqueados & ListaBloqueadosRelations;
+export type ListaBloqueadosWithRelations = ListaBloqueados &
+  ListaBloqueadosRelations;

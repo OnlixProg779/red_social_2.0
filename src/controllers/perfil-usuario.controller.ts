@@ -5,7 +5,7 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -15,17 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-Perfil,
-RolesPagina,
-Usuario,
-} from '../models';
+import {Perfil, Usuario} from '../models';
 import {PerfilRepository} from '../repositories';
 
 export class PerfilUsuarioController {
   constructor(
     @repository(PerfilRepository) protected perfilRepository: PerfilRepository,
-  ) { }
+  ) {}
 
   @get('/perfils/{id}/usuarios', {
     responses: {
@@ -65,7 +61,8 @@ export class PerfilUsuarioController {
           }),
         },
       },
-    }) usuario: Omit<Usuario, 'usuarioId'>,
+    })
+    usuario: Omit<Usuario, 'usuarioId'>,
   ): Promise<Usuario> {
     return this.perfilRepository.usuarios(id).create(usuario);
   }
@@ -88,7 +85,8 @@ export class PerfilUsuarioController {
       },
     })
     usuario: Partial<Usuario>,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.perfilRepository.usuarios(id).patch(usuario, where);
   }
@@ -103,7 +101,8 @@ export class PerfilUsuarioController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.perfilRepository.usuarios(id).delete(where);
   }

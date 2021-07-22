@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  ReaccionHistoria,
-  Historia,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Historia, ReaccionHistoria} from '../models';
 import {ReaccionHistoriaRepository} from '../repositories';
 
 export class ReaccionHistoriaHistoriaController {
   constructor(
     @repository(ReaccionHistoriaRepository)
     public reaccionHistoriaRepository: ReaccionHistoriaRepository,
-  ) { }
+  ) {}
 
   @get('/reaccion-historias/{id}/historia', {
     responses: {
@@ -31,7 +22,8 @@ export class ReaccionHistoriaHistoriaController {
     },
   })
   async getHistoria(
-    @param.path.string('id') id: typeof ReaccionHistoria.prototype.reaccionHistoriaId,
+    @param.path.string('id')
+    id: typeof ReaccionHistoria.prototype.reaccionHistoriaId,
   ): Promise<Historia> {
     return this.reaccionHistoriaRepository.historia(id);
   }

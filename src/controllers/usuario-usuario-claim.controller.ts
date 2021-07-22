@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Usuario,
-  UsuarioClaim,
-} from '../models';
+import {Usuario, UsuarioClaim} from '../models';
 import {UsuarioRepository} from '../repositories';
 
 export class UsuarioUsuarioClaimController {
   constructor(
-    @repository(UsuarioRepository) protected usuarioRepository: UsuarioRepository,
-  ) { }
+    @repository(UsuarioRepository)
+    protected usuarioRepository: UsuarioRepository,
+  ) {}
 
   @get('/usuarios/{id}/usuario-claims', {
     responses: {
@@ -49,7 +47,9 @@ export class UsuarioUsuarioClaimController {
     responses: {
       '200': {
         description: 'Usuario model instance',
-        content: {'application/json': {schema: getModelSchemaRef(UsuarioClaim)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(UsuarioClaim)},
+        },
       },
     },
   })
@@ -61,11 +61,12 @@ export class UsuarioUsuarioClaimController {
           schema: getModelSchemaRef(UsuarioClaim, {
             title: 'NewUsuarioClaimInUsuario',
             exclude: ['usuarioClaimId'],
-            optional: ['usuarioId']
+            optional: ['usuarioId'],
           }),
         },
       },
-    }) usuarioClaim: Omit<UsuarioClaim, 'usuarioClaimId'>,
+    })
+    usuarioClaim: Omit<UsuarioClaim, 'usuarioClaimId'>,
   ): Promise<UsuarioClaim> {
     return this.usuarioRepository.usuarioClaims(id).create(usuarioClaim);
   }
@@ -88,7 +89,8 @@ export class UsuarioUsuarioClaimController {
       },
     })
     usuarioClaim: Partial<UsuarioClaim>,
-    @param.query.object('where', getWhereSchemaFor(UsuarioClaim)) where?: Where<UsuarioClaim>,
+    @param.query.object('where', getWhereSchemaFor(UsuarioClaim))
+    where?: Where<UsuarioClaim>,
   ): Promise<Count> {
     return this.usuarioRepository.usuarioClaims(id).patch(usuarioClaim, where);
   }
@@ -103,7 +105,8 @@ export class UsuarioUsuarioClaimController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(UsuarioClaim)) where?: Where<UsuarioClaim>,
+    @param.query.object('where', getWhereSchemaFor(UsuarioClaim))
+    where?: Where<UsuarioClaim>,
   ): Promise<Count> {
     return this.usuarioRepository.usuarioClaims(id).delete(where);
   }

@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Historia,
-  EtiquetaHistoria,
-} from '../models';
+import {EtiquetaHistoria, Historia} from '../models';
 import {HistoriaRepository} from '../repositories';
 
 export class HistoriaEtiquetaHistoriaController {
   constructor(
-    @repository(HistoriaRepository) protected historiaRepository: HistoriaRepository,
-  ) { }
+    @repository(HistoriaRepository)
+    protected historiaRepository: HistoriaRepository,
+  ) {}
 
   @get('/historias/{id}/etiqueta-historias', {
     responses: {
@@ -49,7 +47,9 @@ export class HistoriaEtiquetaHistoriaController {
     responses: {
       '200': {
         description: 'Historia model instance',
-        content: {'application/json': {schema: getModelSchemaRef(EtiquetaHistoria)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(EtiquetaHistoria)},
+        },
       },
     },
   })
@@ -61,13 +61,16 @@ export class HistoriaEtiquetaHistoriaController {
           schema: getModelSchemaRef(EtiquetaHistoria, {
             title: 'NewEtiquetaHistoriaInHistoria',
             exclude: ['etiquetaHistoriaId'],
-            optional: ['historiaId']
+            optional: ['historiaId'],
           }),
         },
       },
-    }) etiquetaHistoria: Omit<EtiquetaHistoria, 'etiquetaHistoriaId'>,
+    })
+    etiquetaHistoria: Omit<EtiquetaHistoria, 'etiquetaHistoriaId'>,
   ): Promise<EtiquetaHistoria> {
-    return this.historiaRepository.etiquetaHistorias(id).create(etiquetaHistoria);
+    return this.historiaRepository
+      .etiquetaHistorias(id)
+      .create(etiquetaHistoria);
   }
 
   @patch('/historias/{id}/etiqueta-historias', {
@@ -88,9 +91,12 @@ export class HistoriaEtiquetaHistoriaController {
       },
     })
     etiquetaHistoria: Partial<EtiquetaHistoria>,
-    @param.query.object('where', getWhereSchemaFor(EtiquetaHistoria)) where?: Where<EtiquetaHistoria>,
+    @param.query.object('where', getWhereSchemaFor(EtiquetaHistoria))
+    where?: Where<EtiquetaHistoria>,
   ): Promise<Count> {
-    return this.historiaRepository.etiquetaHistorias(id).patch(etiquetaHistoria, where);
+    return this.historiaRepository
+      .etiquetaHistorias(id)
+      .patch(etiquetaHistoria, where);
   }
 
   @del('/historias/{id}/etiqueta-historias', {
@@ -103,7 +109,8 @@ export class HistoriaEtiquetaHistoriaController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(EtiquetaHistoria)) where?: Where<EtiquetaHistoria>,
+    @param.query.object('where', getWhereSchemaFor(EtiquetaHistoria))
+    where?: Where<EtiquetaHistoria>,
   ): Promise<Count> {
     return this.historiaRepository.etiquetaHistorias(id).delete(where);
   }

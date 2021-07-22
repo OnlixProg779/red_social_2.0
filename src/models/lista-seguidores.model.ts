@@ -1,22 +1,39 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
-import {Usuario} from './usuario.model';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {ListaSeguidoresUsuario} from './lista-seguidores-usuario.model';
+import {Usuario} from './usuario.model';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'ListaSeguidores'}}
+  settings: {
+    idInjection: false,
+    postgresql: {schema: 'public', table: 'ListaSeguidores'},
+  },
 })
 export class ListaSeguidores extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'ListaSeguidoresId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'ListaSeguidoresId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   listaSeguidoresId: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'Owner', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Owner',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   owner?: string;
 
@@ -37,4 +54,5 @@ export interface ListaSeguidoresRelations {
   // describe navigational properties here
 }
 
-export type ListaSeguidoresWithRelations = ListaSeguidores & ListaSeguidoresRelations;
+export type ListaSeguidoresWithRelations = ListaSeguidores &
+  ListaSeguidoresRelations;

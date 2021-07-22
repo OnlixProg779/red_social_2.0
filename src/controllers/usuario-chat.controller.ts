@@ -5,7 +5,7 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -15,17 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-Usuario,
-UsuarioHasChat,
-Chat,
-} from '../models';
+import {Chat, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 
 export class UsuarioChatController {
   constructor(
-    @repository(UsuarioRepository) protected usuarioRepository: UsuarioRepository,
-  ) { }
+    @repository(UsuarioRepository)
+    protected usuarioRepository: UsuarioRepository,
+  ) {}
 
   @get('/usuarios/{id}/chats', {
     responses: {
@@ -65,7 +62,8 @@ export class UsuarioChatController {
           }),
         },
       },
-    }) chat: Omit<Chat, 'chatId'>,
+    })
+    chat: Omit<Chat, 'chatId'>,
   ): Promise<Chat> {
     return this.usuarioRepository.chats(id).create(chat);
   }

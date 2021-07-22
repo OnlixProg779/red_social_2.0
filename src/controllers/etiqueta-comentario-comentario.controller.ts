@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  EtiquetaComentario,
-  Comentario,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Comentario, EtiquetaComentario} from '../models';
 import {EtiquetaComentarioRepository} from '../repositories';
 
 export class EtiquetaComentarioComentarioController {
   constructor(
     @repository(EtiquetaComentarioRepository)
     public etiquetaComentarioRepository: EtiquetaComentarioRepository,
-  ) { }
+  ) {}
 
   @get('/etiqueta-comentarios/{id}/comentario', {
     responses: {
@@ -31,7 +22,8 @@ export class EtiquetaComentarioComentarioController {
     },
   })
   async getComentario(
-    @param.path.string('id') id: typeof EtiquetaComentario.prototype.etiquetaComentarioId,
+    @param.path.string('id')
+    id: typeof EtiquetaComentario.prototype.etiquetaComentarioId,
   ): Promise<Comentario> {
     return this.etiquetaComentarioRepository.comentario(id);
   }

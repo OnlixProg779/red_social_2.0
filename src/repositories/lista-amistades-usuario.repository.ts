@@ -9,7 +9,8 @@ export class ListaAmistadesUsuarioRepository extends DefaultCrudRepository<
   ListaAmistadesUsuarioRelations
 > {
   constructor(
-    @inject('datasources.RedSocialContext') dataSource: RedSocialContextDataSource,
+    @inject('datasources.RedSocialContext')
+    dataSource: RedSocialContextDataSource,
   ) {
     super(ListaAmistadesUsuario, dataSource);
   }

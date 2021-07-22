@@ -1,7 +1,10 @@
 import {inject} from '@loopback/core';
 import {DefaultCrudRepository} from '@loopback/repository';
 import {RedSocialContextDataSource} from '../datasources';
-import {ListaSeguidoresUsuario, ListaSeguidoresUsuarioRelations} from '../models';
+import {
+  ListaSeguidoresUsuario,
+  ListaSeguidoresUsuarioRelations,
+} from '../models';
 
 export class ListaSeguidoresUsuarioRepository extends DefaultCrudRepository<
   ListaSeguidoresUsuario,
@@ -9,7 +12,8 @@ export class ListaSeguidoresUsuarioRepository extends DefaultCrudRepository<
   ListaSeguidoresUsuarioRelations
 > {
   constructor(
-    @inject('datasources.RedSocialContext') dataSource: RedSocialContextDataSource,
+    @inject('datasources.RedSocialContext')
+    dataSource: RedSocialContextDataSource,
   ) {
     super(ListaSeguidoresUsuario, dataSource);
   }

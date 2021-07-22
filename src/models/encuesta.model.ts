@@ -1,27 +1,57 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {
+  belongsTo,
+  Entity,
+  hasMany,
+  model,
+  property,
+} from '@loopback/repository';
 import {Publicacion} from './publicacion.model';
 import {RespuestaEncuesta} from './respuesta-encuesta.model';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'Encuesta'}}
+  settings: {
+    idInjection: false,
+    postgresql: {schema: 'public', table: 'Encuesta'},
+  },
 })
 export class Encuesta extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'EncuestaId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'EncuestaId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   encuestaId: string;
   @property({
     type: 'string',
-    postgresql: {columnName: 'Pregunta', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Pregunta',
+      dataType: 'text',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   pregunta?: string;
 
   @property({
     type: 'boolean',
-    postgresql: {columnName: 'Active', dataType: 'boolean', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Active',
+      dataType: 'boolean',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   active?: boolean;
 

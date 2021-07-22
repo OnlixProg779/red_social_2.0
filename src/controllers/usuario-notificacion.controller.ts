@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Usuario,
-  Notificacion,
-} from '../models';
+import {Notificacion, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 
 export class UsuarioNotificacionController {
   constructor(
-    @repository(UsuarioRepository) protected usuarioRepository: UsuarioRepository,
-  ) { }
+    @repository(UsuarioRepository)
+    protected usuarioRepository: UsuarioRepository,
+  ) {}
 
   @get('/usuarios/{id}/notificacions', {
     responses: {
@@ -49,7 +47,9 @@ export class UsuarioNotificacionController {
     responses: {
       '200': {
         description: 'Usuario model instance',
-        content: {'application/json': {schema: getModelSchemaRef(Notificacion)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(Notificacion)},
+        },
       },
     },
   })
@@ -61,11 +61,12 @@ export class UsuarioNotificacionController {
           schema: getModelSchemaRef(Notificacion, {
             title: 'NewNotificacionInUsuario',
             exclude: ['notificacionId'],
-            optional: ['usuarioId']
+            optional: ['usuarioId'],
           }),
         },
       },
-    }) notificacion: Omit<Notificacion, 'notificacionId'>,
+    })
+    notificacion: Omit<Notificacion, 'notificacionId'>,
   ): Promise<Notificacion> {
     return this.usuarioRepository.notificaciones(id).create(notificacion);
   }
@@ -88,7 +89,8 @@ export class UsuarioNotificacionController {
       },
     })
     notificacion: Partial<Notificacion>,
-    @param.query.object('where', getWhereSchemaFor(Notificacion)) where?: Where<Notificacion>,
+    @param.query.object('where', getWhereSchemaFor(Notificacion))
+    where?: Where<Notificacion>,
   ): Promise<Count> {
     return this.usuarioRepository.notificaciones(id).patch(notificacion, where);
   }
@@ -103,7 +105,8 @@ export class UsuarioNotificacionController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Notificacion)) where?: Where<Notificacion>,
+    @param.query.object('where', getWhereSchemaFor(Notificacion))
+    where?: Where<Notificacion>,
   ): Promise<Count> {
     return this.usuarioRepository.notificaciones(id).delete(where);
   }

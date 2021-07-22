@@ -9,7 +9,8 @@ export class ParticipanteRepository extends DefaultCrudRepository<
   ParticipanteRelations
 > {
   constructor(
-    @inject('datasources.RedSocialContext') dataSource: RedSocialContextDataSource,
+    @inject('datasources.RedSocialContext')
+    dataSource: RedSocialContextDataSource,
   ) {
     super(Participante, dataSource);
   }

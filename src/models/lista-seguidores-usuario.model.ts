@@ -3,29 +3,50 @@ import {Entity, model, property} from '@loopback/repository';
 @model({
   settings: {
     idInjection: false,
-    postgresql: {schema: 'public', table: 'ListaSeguidoresUsuario'}
-  }
+    postgresql: {schema: 'public', table: 'ListaSeguidoresUsuario'},
+  },
 })
 export class ListaSeguidoresUsuario extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'ListaSeguidoresUsuarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'ListaSeguidoresUsuarioId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   listaSeguidoresUsuarioId: string;
 
   @property({
     type: 'string',
     required: true,
-    postgresql: {columnName: 'ListaSeguidoresId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'ListaSeguidoresId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   listaSeguidoresId: string;
 
   @property({
     type: 'string',
     required: true,
-    postgresql: {columnName: 'UsuarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'UsuarioId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   usuarioId: string;
 
@@ -44,4 +65,5 @@ export interface ListaSeguidoresUsuarioRelations {
   // describe navigational properties here
 }
 
-export type ListaSeguidoresUsuarioWithRelations = ListaSeguidoresUsuario & ListaSeguidoresUsuarioRelations;
+export type ListaSeguidoresUsuarioWithRelations = ListaSeguidoresUsuario &
+  ListaSeguidoresUsuarioRelations;

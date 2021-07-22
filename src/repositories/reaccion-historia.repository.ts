@@ -1,7 +1,11 @@
-import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
+import {Getter, inject} from '@loopback/core';
+import {
+  BelongsToAccessor,
+  DefaultCrudRepository,
+  repository,
+} from '@loopback/repository';
 import {RedSocialContextDataSource} from '../datasources';
-import {ReaccionHistoria, ReaccionHistoriaRelations, Historia} from '../models';
+import {Historia, ReaccionHistoria, ReaccionHistoriaRelations} from '../models';
 import {HistoriaRepository} from './historia.repository';
 
 export class ReaccionHistoriaRepository extends DefaultCrudRepository<
@@ -9,14 +13,22 @@ export class ReaccionHistoriaRepository extends DefaultCrudRepository<
   typeof ReaccionHistoria.prototype.reaccionHistoriaId,
   ReaccionHistoriaRelations
 > {
-
-  public readonly historia: BelongsToAccessor<Historia, typeof ReaccionHistoria.prototype.reaccionHistoriaId>;
+  public readonly historia: BelongsToAccessor<
+    Historia,
+    typeof ReaccionHistoria.prototype.reaccionHistoriaId
+  >;
 
   constructor(
-    @inject('datasources.RedSocialContext') dataSource: RedSocialContextDataSource, @repository.getter('HistoriaRepository') protected historiaRepositoryGetter: Getter<HistoriaRepository>,
+    @inject('datasources.RedSocialContext')
+    dataSource: RedSocialContextDataSource,
+    @repository.getter('HistoriaRepository')
+    protected historiaRepositoryGetter: Getter<HistoriaRepository>,
   ) {
     super(ReaccionHistoria, dataSource);
-    this.historia = this.createBelongsToAccessorFor('historia', historiaRepositoryGetter,);
+    this.historia = this.createBelongsToAccessorFor(
+      'historia',
+      historiaRepositoryGetter,
+    );
     this.registerInclusionResolver('historia', this.historia.inclusionResolver);
   }
 }

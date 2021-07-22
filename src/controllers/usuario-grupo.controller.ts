@@ -5,7 +5,7 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -15,17 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-Usuario,
-Miembro,
-Grupo,
-} from '../models';
+import {Grupo, Usuario} from '../models';
 import {UsuarioRepository} from '../repositories';
 
 export class UsuarioGrupoController {
   constructor(
-    @repository(UsuarioRepository) protected usuarioRepository: UsuarioRepository,
-  ) { }
+    @repository(UsuarioRepository)
+    protected usuarioRepository: UsuarioRepository,
+  ) {}
 
   @get('/usuarios/{id}/grupos', {
     responses: {
@@ -65,7 +62,8 @@ export class UsuarioGrupoController {
           }),
         },
       },
-    }) grupo: Omit<Grupo, 'grupoId'>,
+    })
+    grupo: Omit<Grupo, 'grupoId'>,
   ): Promise<Grupo> {
     return this.usuarioRepository.grupos(id).create(grupo);
   }

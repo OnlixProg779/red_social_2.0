@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Publicacion,
-  Encuesta,
-} from '../models';
+import {Encuesta, Publicacion} from '../models';
 import {PublicacionRepository} from '../repositories';
 
 export class PublicacionEncuestaController {
   constructor(
-    @repository(PublicacionRepository) protected publicacionRepository: PublicacionRepository,
-  ) { }
+    @repository(PublicacionRepository)
+    protected publicacionRepository: PublicacionRepository,
+  ) {}
 
   @get('/publicacions/{id}/encuesta', {
     responses: {
@@ -61,11 +59,12 @@ export class PublicacionEncuestaController {
           schema: getModelSchemaRef(Encuesta, {
             title: 'NewEncuestaInPublicacion',
             exclude: ['encuestaId'],
-            optional: ['publicacionId']
+            optional: ['publicacionId'],
           }),
         },
       },
-    }) encuesta: Omit<Encuesta, 'encuestaId'>,
+    })
+    encuesta: Omit<Encuesta, 'encuestaId'>,
   ): Promise<Encuesta> {
     return this.publicacionRepository.encuesta(id).create(encuesta);
   }
@@ -88,7 +87,8 @@ export class PublicacionEncuestaController {
       },
     })
     encuesta: Partial<Encuesta>,
-    @param.query.object('where', getWhereSchemaFor(Encuesta)) where?: Where<Encuesta>,
+    @param.query.object('where', getWhereSchemaFor(Encuesta))
+    where?: Where<Encuesta>,
   ): Promise<Count> {
     return this.publicacionRepository.encuesta(id).patch(encuesta, where);
   }
@@ -103,7 +103,8 @@ export class PublicacionEncuestaController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Encuesta)) where?: Where<Encuesta>,
+    @param.query.object('where', getWhereSchemaFor(Encuesta))
+    where?: Where<Encuesta>,
   ): Promise<Count> {
     return this.publicacionRepository.encuesta(id).delete(where);
   }

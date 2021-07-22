@@ -15,16 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Perfil,
-  Historia,
-} from '../models';
+import {Historia, Perfil} from '../models';
 import {PerfilRepository} from '../repositories';
 
 export class PerfilHistoriaController {
   constructor(
     @repository(PerfilRepository) protected perfilRepository: PerfilRepository,
-  ) { }
+  ) {}
 
   @get('/perfils/{id}/historias', {
     responses: {
@@ -61,11 +58,12 @@ export class PerfilHistoriaController {
           schema: getModelSchemaRef(Historia, {
             title: 'NewHistoriaInPerfil',
             exclude: ['historiaId'],
-            optional: ['perfilId']
+            optional: ['perfilId'],
           }),
         },
       },
-    }) historia: Omit<Historia, 'historiaId'>,
+    })
+    historia: Omit<Historia, 'historiaId'>,
   ): Promise<Historia> {
     return this.perfilRepository.historias(id).create(historia);
   }
@@ -88,7 +86,8 @@ export class PerfilHistoriaController {
       },
     })
     historia: Partial<Historia>,
-    @param.query.object('where', getWhereSchemaFor(Historia)) where?: Where<Historia>,
+    @param.query.object('where', getWhereSchemaFor(Historia))
+    where?: Where<Historia>,
   ): Promise<Count> {
     return this.perfilRepository.historias(id).patch(historia, where);
   }
@@ -103,7 +102,8 @@ export class PerfilHistoriaController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Historia)) where?: Where<Historia>,
+    @param.query.object('where', getWhereSchemaFor(Historia))
+    where?: Where<Historia>,
   ): Promise<Count> {
     return this.perfilRepository.historias(id).delete(where);
   }

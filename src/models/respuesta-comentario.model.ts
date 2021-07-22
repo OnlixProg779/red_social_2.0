@@ -1,37 +1,71 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {
+  belongsTo,
+  Entity,
+  hasMany,
+  model,
+  property,
+} from '@loopback/repository';
 import {Comentario} from './comentario.model';
-import {ReaccionRespuestaCom} from './reaccion-respuesta-com.model';
 import {EtiquetaRespuestaCom} from './etiqueta-respuesta-com.model';
+import {ReaccionRespuestaCom} from './reaccion-respuesta-com.model';
 
 @model({
   settings: {
     idInjection: false,
-    postgresql: {schema: 'public', table: 'RespuestaComentario'}
-  }
+    postgresql: {schema: 'public', table: 'RespuestaComentario'},
+  },
 })
 export class RespuestaComentario extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'RespuestaComentarioId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'RespuestaComentarioId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   respuestaComentarioId: string;
   @property({
     type: 'date',
-    postgresql: {columnName: 'Date', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Date',
+      dataType: 'timestamp with time zone',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   date?: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'Texto', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Texto',
+      dataType: 'text',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   texto?: string;
 
   @property({
     type: 'boolean',
-    postgresql: {columnName: 'Active', dataType: 'boolean', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Active',
+      dataType: 'boolean',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   active?: boolean;
 
@@ -58,4 +92,5 @@ export interface RespuestaComentarioRelations {
   // describe navigational properties here
 }
 
-export type RespuestaComentarioWithRelations = RespuestaComentario & RespuestaComentarioRelations;
+export type RespuestaComentarioWithRelations = RespuestaComentario &
+  RespuestaComentarioRelations;

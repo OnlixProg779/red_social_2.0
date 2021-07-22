@@ -5,7 +5,7 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -15,17 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-Evento,
-Participante,
-Usuario,
-} from '../models';
+import {Evento, Usuario} from '../models';
 import {EventoRepository} from '../repositories';
 
 export class EventoUsuarioController {
   constructor(
     @repository(EventoRepository) protected eventoRepository: EventoRepository,
-  ) { }
+  ) {}
 
   @get('/eventos/{id}/usuarios', {
     responses: {
@@ -65,7 +61,8 @@ export class EventoUsuarioController {
           }),
         },
       },
-    }) usuario: Omit<Usuario, 'usuarioId'>,
+    })
+    usuario: Omit<Usuario, 'usuarioId'>,
   ): Promise<Usuario> {
     return this.eventoRepository.usuarios(id).create(usuario);
   }
@@ -88,7 +85,8 @@ export class EventoUsuarioController {
       },
     })
     usuario: Partial<Usuario>,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.eventoRepository.usuarios(id).patch(usuario, where);
   }
@@ -103,7 +101,8 @@ export class EventoUsuarioController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.eventoRepository.usuarios(id).delete(where);
   }

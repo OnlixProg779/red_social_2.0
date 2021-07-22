@@ -15,16 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Chat,
-  ReaccionChat,
-} from '../models';
+import {Chat, ReaccionChat} from '../models';
 import {ChatRepository} from '../repositories';
 
 export class ChatReaccionChatController {
   constructor(
     @repository(ChatRepository) protected chatRepository: ChatRepository,
-  ) { }
+  ) {}
 
   @get('/chats/{id}/reaccion-chats', {
     responses: {
@@ -49,7 +46,9 @@ export class ChatReaccionChatController {
     responses: {
       '200': {
         description: 'Chat model instance',
-        content: {'application/json': {schema: getModelSchemaRef(ReaccionChat)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(ReaccionChat)},
+        },
       },
     },
   })
@@ -61,11 +60,12 @@ export class ChatReaccionChatController {
           schema: getModelSchemaRef(ReaccionChat, {
             title: 'NewReaccionChatInChat',
             exclude: ['reaccionChatId'],
-            optional: ['chatId']
+            optional: ['chatId'],
           }),
         },
       },
-    }) reaccionChat: Omit<ReaccionChat, 'reaccionChatId'>,
+    })
+    reaccionChat: Omit<ReaccionChat, 'reaccionChatId'>,
   ): Promise<ReaccionChat> {
     return this.chatRepository.reaccionChats(id).create(reaccionChat);
   }
@@ -88,7 +88,8 @@ export class ChatReaccionChatController {
       },
     })
     reaccionChat: Partial<ReaccionChat>,
-    @param.query.object('where', getWhereSchemaFor(ReaccionChat)) where?: Where<ReaccionChat>,
+    @param.query.object('where', getWhereSchemaFor(ReaccionChat))
+    where?: Where<ReaccionChat>,
   ): Promise<Count> {
     return this.chatRepository.reaccionChats(id).patch(reaccionChat, where);
   }
@@ -103,7 +104,8 @@ export class ChatReaccionChatController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(ReaccionChat)) where?: Where<ReaccionChat>,
+    @param.query.object('where', getWhereSchemaFor(ReaccionChat))
+    where?: Where<ReaccionChat>,
   ): Promise<Count> {
     return this.chatRepository.reaccionChats(id).delete(where);
   }

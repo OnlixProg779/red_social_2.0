@@ -15,24 +15,26 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  RespuestaComentario,
-  EtiquetaRespuestaCom,
-} from '../models';
+import {EtiquetaRespuestaCom, RespuestaComentario} from '../models';
 import {RespuestaComentarioRepository} from '../repositories';
 
 export class RespuestaComentarioEtiquetaRespuestaComController {
   constructor(
-    @repository(RespuestaComentarioRepository) protected respuestaComentarioRepository: RespuestaComentarioRepository,
-  ) { }
+    @repository(RespuestaComentarioRepository)
+    protected respuestaComentarioRepository: RespuestaComentarioRepository,
+  ) {}
 
   @get('/respuesta-comentarios/{id}/etiqueta-respuesta-coms', {
     responses: {
       '200': {
-        description: 'Array of RespuestaComentario has many EtiquetaRespuestaCom',
+        description:
+          'Array of RespuestaComentario has many EtiquetaRespuestaCom',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(EtiquetaRespuestaCom)},
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(EtiquetaRespuestaCom),
+            },
           },
         },
       },
@@ -42,38 +44,47 @@ export class RespuestaComentarioEtiquetaRespuestaComController {
     @param.path.string('id') id: string,
     @param.query.object('filter') filter?: Filter<EtiquetaRespuestaCom>,
   ): Promise<EtiquetaRespuestaCom[]> {
-    return this.respuestaComentarioRepository.etiquetaRespuestaComs(id).find(filter);
+    return this.respuestaComentarioRepository
+      .etiquetaRespuestaComs(id)
+      .find(filter);
   }
 
   @post('/respuesta-comentarios/{id}/etiqueta-respuesta-coms', {
     responses: {
       '200': {
         description: 'RespuestaComentario model instance',
-        content: {'application/json': {schema: getModelSchemaRef(EtiquetaRespuestaCom)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(EtiquetaRespuestaCom)},
+        },
       },
     },
   })
   async create(
-    @param.path.string('id') id: typeof RespuestaComentario.prototype.respuestaComentarioId,
+    @param.path.string('id')
+    id: typeof RespuestaComentario.prototype.respuestaComentarioId,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(EtiquetaRespuestaCom, {
             title: 'NewEtiquetaRespuestaComInRespuestaComentario',
             exclude: ['etiquetaRespuestaComId'],
-            optional: ['respuestaComentarioId']
+            optional: ['respuestaComentarioId'],
           }),
         },
       },
-    }) etiquetaRespuestaCom: Omit<EtiquetaRespuestaCom, 'etiquetaRespuestaComId'>,
+    })
+    etiquetaRespuestaCom: Omit<EtiquetaRespuestaCom, 'etiquetaRespuestaComId'>,
   ): Promise<EtiquetaRespuestaCom> {
-    return this.respuestaComentarioRepository.etiquetaRespuestaComs(id).create(etiquetaRespuestaCom);
+    return this.respuestaComentarioRepository
+      .etiquetaRespuestaComs(id)
+      .create(etiquetaRespuestaCom);
   }
 
   @patch('/respuesta-comentarios/{id}/etiqueta-respuesta-coms', {
     responses: {
       '200': {
-        description: 'RespuestaComentario.EtiquetaRespuestaCom PATCH success count',
+        description:
+          'RespuestaComentario.EtiquetaRespuestaCom PATCH success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -88,23 +99,30 @@ export class RespuestaComentarioEtiquetaRespuestaComController {
       },
     })
     etiquetaRespuestaCom: Partial<EtiquetaRespuestaCom>,
-    @param.query.object('where', getWhereSchemaFor(EtiquetaRespuestaCom)) where?: Where<EtiquetaRespuestaCom>,
+    @param.query.object('where', getWhereSchemaFor(EtiquetaRespuestaCom))
+    where?: Where<EtiquetaRespuestaCom>,
   ): Promise<Count> {
-    return this.respuestaComentarioRepository.etiquetaRespuestaComs(id).patch(etiquetaRespuestaCom, where);
+    return this.respuestaComentarioRepository
+      .etiquetaRespuestaComs(id)
+      .patch(etiquetaRespuestaCom, where);
   }
 
   @del('/respuesta-comentarios/{id}/etiqueta-respuesta-coms', {
     responses: {
       '200': {
-        description: 'RespuestaComentario.EtiquetaRespuestaCom DELETE success count',
+        description:
+          'RespuestaComentario.EtiquetaRespuestaCom DELETE success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(EtiquetaRespuestaCom)) where?: Where<EtiquetaRespuestaCom>,
+    @param.query.object('where', getWhereSchemaFor(EtiquetaRespuestaCom))
+    where?: Where<EtiquetaRespuestaCom>,
   ): Promise<Count> {
-    return this.respuestaComentarioRepository.etiquetaRespuestaComs(id).delete(where);
+    return this.respuestaComentarioRepository
+      .etiquetaRespuestaComs(id)
+      .delete(where);
   }
 }

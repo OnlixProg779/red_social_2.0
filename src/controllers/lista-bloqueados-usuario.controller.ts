@@ -5,7 +5,7 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -15,22 +15,20 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-ListaBloqueados,
-ListaBloqueadosUsuario,
-Usuario,
-} from '../models';
+import {ListaBloqueados, Usuario} from '../models';
 import {ListaBloqueadosRepository} from '../repositories';
 
 export class ListaBloqueadosUsuarioController {
   constructor(
-    @repository(ListaBloqueadosRepository) protected listaBloqueadosRepository: ListaBloqueadosRepository,
-  ) { }
+    @repository(ListaBloqueadosRepository)
+    protected listaBloqueadosRepository: ListaBloqueadosRepository,
+  ) {}
 
   @get('/lista-bloqueados/{id}/usuarios', {
     responses: {
       '200': {
-        description: 'Array of ListaBloqueados has many Usuario through ListaBloqueadosUsuario',
+        description:
+          'Array of ListaBloqueados has many Usuario through ListaBloqueadosUsuario',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(Usuario)},
@@ -55,7 +53,8 @@ export class ListaBloqueadosUsuarioController {
     },
   })
   async create(
-    @param.path.string('id') id: typeof ListaBloqueados.prototype.listaBloqueadosId,
+    @param.path.string('id')
+    id: typeof ListaBloqueados.prototype.listaBloqueadosId,
     @requestBody({
       content: {
         'application/json': {
@@ -65,7 +64,8 @@ export class ListaBloqueadosUsuarioController {
           }),
         },
       },
-    }) usuario: Omit<Usuario, 'usuarioId'>,
+    })
+    usuario: Omit<Usuario, 'usuarioId'>,
   ): Promise<Usuario> {
     return this.listaBloqueadosRepository.usuarios(id).create(usuario);
   }
@@ -88,7 +88,8 @@ export class ListaBloqueadosUsuarioController {
       },
     })
     usuario: Partial<Usuario>,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.listaBloqueadosRepository.usuarios(id).patch(usuario, where);
   }
@@ -103,7 +104,8 @@ export class ListaBloqueadosUsuarioController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.listaBloqueadosRepository.usuarios(id).delete(where);
   }

@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  ReaccionRespuestaCom,
-  RespuestaComentario,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {ReaccionRespuestaCom, RespuestaComentario} from '../models';
 import {ReaccionRespuestaComRepository} from '../repositories';
 
 export class ReaccionRespuestaComRespuestaComentarioController {
   constructor(
     @repository(ReaccionRespuestaComRepository)
     public reaccionRespuestaComRepository: ReaccionRespuestaComRepository,
-  ) { }
+  ) {}
 
   @get('/reaccion-respuesta-coms/{id}/respuesta-comentario', {
     responses: {
@@ -24,14 +15,18 @@ export class ReaccionRespuestaComRespuestaComentarioController {
         description: 'RespuestaComentario belonging to ReaccionRespuestaCom',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(RespuestaComentario)},
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(RespuestaComentario),
+            },
           },
         },
       },
     },
   })
   async getRespuestaComentario(
-    @param.path.string('id') id: typeof ReaccionRespuestaCom.prototype.reaccionRespuestaComId,
+    @param.path.string('id')
+    id: typeof ReaccionRespuestaCom.prototype.reaccionRespuestaComId,
   ): Promise<RespuestaComentario> {
     return this.reaccionRespuestaComRepository.respuestaComentario(id);
   }

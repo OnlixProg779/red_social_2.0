@@ -1,7 +1,11 @@
-import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
+import {Getter, inject} from '@loopback/core';
+import {
+  BelongsToAccessor,
+  DefaultCrudRepository,
+  repository,
+} from '@loopback/repository';
 import {RedSocialContextDataSource} from '../datasources';
-import {UsuarioClaim, UsuarioClaimRelations, Usuario} from '../models';
+import {Usuario, UsuarioClaim, UsuarioClaimRelations} from '../models';
 import {UsuarioRepository} from './usuario.repository';
 
 export class UsuarioClaimRepository extends DefaultCrudRepository<
@@ -9,14 +13,22 @@ export class UsuarioClaimRepository extends DefaultCrudRepository<
   typeof UsuarioClaim.prototype.usuarioClaimId,
   UsuarioClaimRelations
 > {
-
-  public readonly usuario: BelongsToAccessor<Usuario, typeof UsuarioClaim.prototype.usuarioClaimId>;
+  public readonly usuario: BelongsToAccessor<
+    Usuario,
+    typeof UsuarioClaim.prototype.usuarioClaimId
+  >;
 
   constructor(
-    @inject('datasources.RedSocialContext') dataSource: RedSocialContextDataSource, @repository.getter('UsuarioRepository') protected usuarioRepositoryGetter: Getter<UsuarioRepository>,
+    @inject('datasources.RedSocialContext')
+    dataSource: RedSocialContextDataSource,
+    @repository.getter('UsuarioRepository')
+    protected usuarioRepositoryGetter: Getter<UsuarioRepository>,
   ) {
     super(UsuarioClaim, dataSource);
-    this.usuario = this.createBelongsToAccessorFor('usuario', usuarioRepositoryGetter,);
+    this.usuario = this.createBelongsToAccessorFor(
+      'usuario',
+      usuarioRepositoryGetter,
+    );
     this.registerInclusionResolver('usuario', this.usuario.inclusionResolver);
   }
 }

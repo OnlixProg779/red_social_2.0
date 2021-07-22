@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Encuesta,
-  RespuestaEncuesta,
-} from '../models';
+import {Encuesta, RespuestaEncuesta} from '../models';
 import {EncuestaRepository} from '../repositories';
 
 export class EncuestaRespuestaEncuestaController {
   constructor(
-    @repository(EncuestaRepository) protected encuestaRepository: EncuestaRepository,
-  ) { }
+    @repository(EncuestaRepository)
+    protected encuestaRepository: EncuestaRepository,
+  ) {}
 
   @get('/encuestas/{id}/respuesta-encuestas', {
     responses: {
@@ -32,7 +30,10 @@ export class EncuestaRespuestaEncuestaController {
         description: 'Array of Encuesta has many RespuestaEncuesta',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(RespuestaEncuesta)},
+            schema: {
+              type: 'array',
+              items: getModelSchemaRef(RespuestaEncuesta),
+            },
           },
         },
       },
@@ -49,7 +50,9 @@ export class EncuestaRespuestaEncuestaController {
     responses: {
       '200': {
         description: 'Encuesta model instance',
-        content: {'application/json': {schema: getModelSchemaRef(RespuestaEncuesta)}},
+        content: {
+          'application/json': {schema: getModelSchemaRef(RespuestaEncuesta)},
+        },
       },
     },
   })
@@ -61,13 +64,16 @@ export class EncuestaRespuestaEncuestaController {
           schema: getModelSchemaRef(RespuestaEncuesta, {
             title: 'NewRespuestaEncuestaInEncuesta',
             exclude: ['respuestaEncuestaId'],
-            optional: ['encuestaId']
+            optional: ['encuestaId'],
           }),
         },
       },
-    }) respuestaEncuesta: Omit<RespuestaEncuesta, 'respuestaEncuestaId'>,
+    })
+    respuestaEncuesta: Omit<RespuestaEncuesta, 'respuestaEncuestaId'>,
   ): Promise<RespuestaEncuesta> {
-    return this.encuestaRepository.respuestaEncuestas(id).create(respuestaEncuesta);
+    return this.encuestaRepository
+      .respuestaEncuestas(id)
+      .create(respuestaEncuesta);
   }
 
   @patch('/encuestas/{id}/respuesta-encuestas', {
@@ -88,9 +94,12 @@ export class EncuestaRespuestaEncuestaController {
       },
     })
     respuestaEncuesta: Partial<RespuestaEncuesta>,
-    @param.query.object('where', getWhereSchemaFor(RespuestaEncuesta)) where?: Where<RespuestaEncuesta>,
+    @param.query.object('where', getWhereSchemaFor(RespuestaEncuesta))
+    where?: Where<RespuestaEncuesta>,
   ): Promise<Count> {
-    return this.encuestaRepository.respuestaEncuestas(id).patch(respuestaEncuesta, where);
+    return this.encuestaRepository
+      .respuestaEncuestas(id)
+      .patch(respuestaEncuesta, where);
   }
 
   @del('/encuestas/{id}/respuesta-encuestas', {
@@ -103,7 +112,8 @@ export class EncuestaRespuestaEncuestaController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(RespuestaEncuesta)) where?: Where<RespuestaEncuesta>,
+    @param.query.object('where', getWhereSchemaFor(RespuestaEncuesta))
+    where?: Where<RespuestaEncuesta>,
   ): Promise<Count> {
     return this.encuestaRepository.respuestaEncuestas(id).delete(where);
   }

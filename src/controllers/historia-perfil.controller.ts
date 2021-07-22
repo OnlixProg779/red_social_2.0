@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  Historia,
-  Perfil,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Historia, Perfil} from '../models';
 import {HistoriaRepository} from '../repositories';
 
 export class HistoriaPerfilController {
   constructor(
     @repository(HistoriaRepository)
     public historiaRepository: HistoriaRepository,
-  ) { }
+  ) {}
 
   @get('/historias/{id}/perfil', {
     responses: {

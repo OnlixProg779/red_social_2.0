@@ -15,16 +15,14 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Publicacion,
-  Comentario,
-} from '../models';
+import {Comentario, Publicacion} from '../models';
 import {PublicacionRepository} from '../repositories';
 
 export class PublicacionComentarioController {
   constructor(
-    @repository(PublicacionRepository) protected publicacionRepository: PublicacionRepository,
-  ) { }
+    @repository(PublicacionRepository)
+    protected publicacionRepository: PublicacionRepository,
+  ) {}
 
   @get('/publicacions/{id}/comentarios', {
     responses: {
@@ -61,11 +59,12 @@ export class PublicacionComentarioController {
           schema: getModelSchemaRef(Comentario, {
             title: 'NewComentarioInPublicacion',
             exclude: ['comentarioId'],
-            optional: ['publicacionId']
+            optional: ['publicacionId'],
           }),
         },
       },
-    }) comentario: Omit<Comentario, 'comentarioId'>,
+    })
+    comentario: Omit<Comentario, 'comentarioId'>,
   ): Promise<Comentario> {
     return this.publicacionRepository.comentarios(id).create(comentario);
   }
@@ -88,7 +87,8 @@ export class PublicacionComentarioController {
       },
     })
     comentario: Partial<Comentario>,
-    @param.query.object('where', getWhereSchemaFor(Comentario)) where?: Where<Comentario>,
+    @param.query.object('where', getWhereSchemaFor(Comentario))
+    where?: Where<Comentario>,
   ): Promise<Count> {
     return this.publicacionRepository.comentarios(id).patch(comentario, where);
   }
@@ -103,7 +103,8 @@ export class PublicacionComentarioController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Comentario)) where?: Where<Comentario>,
+    @param.query.object('where', getWhereSchemaFor(Comentario))
+    where?: Where<Comentario>,
   ): Promise<Count> {
     return this.publicacionRepository.comentarios(id).delete(where);
   }

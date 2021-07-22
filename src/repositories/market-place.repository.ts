@@ -1,5 +1,9 @@
-import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
+import {Getter, inject} from '@loopback/core';
+import {
+  BelongsToAccessor,
+  DefaultCrudRepository,
+  repository,
+} from '@loopback/repository';
 import {RedSocialContextDataSource} from '../datasources';
 import {MarketPlace, MarketPlaceRelations, Perfil} from '../models';
 import {PerfilRepository} from './perfil.repository';
@@ -9,14 +13,22 @@ export class MarketPlaceRepository extends DefaultCrudRepository<
   typeof MarketPlace.prototype.marketPlaceId,
   MarketPlaceRelations
 > {
-
-  public readonly perfil: BelongsToAccessor<Perfil, typeof MarketPlace.prototype.marketPlaceId>;
+  public readonly perfil: BelongsToAccessor<
+    Perfil,
+    typeof MarketPlace.prototype.marketPlaceId
+  >;
 
   constructor(
-    @inject('datasources.RedSocialContext') dataSource: RedSocialContextDataSource, @repository.getter('PerfilRepository') protected perfilRepositoryGetter: Getter<PerfilRepository>,
+    @inject('datasources.RedSocialContext')
+    dataSource: RedSocialContextDataSource,
+    @repository.getter('PerfilRepository')
+    protected perfilRepositoryGetter: Getter<PerfilRepository>,
   ) {
     super(MarketPlace, dataSource);
-    this.perfil = this.createBelongsToAccessorFor('perfil', perfilRepositoryGetter,);
+    this.perfil = this.createBelongsToAccessorFor(
+      'perfil',
+      perfilRepositoryGetter,
+    );
     this.registerInclusionResolver('perfil', this.perfil.inclusionResolver);
   }
 }

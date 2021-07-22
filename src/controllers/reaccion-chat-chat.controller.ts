@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  ReaccionChat,
-  Chat,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Chat, ReaccionChat} from '../models';
 import {ReaccionChatRepository} from '../repositories';
 
 export class ReaccionChatChatController {
   constructor(
     @repository(ReaccionChatRepository)
     public reaccionChatRepository: ReaccionChatRepository,
-  ) { }
+  ) {}
 
   @get('/reaccion-chats/{id}/chat', {
     responses: {

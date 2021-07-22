@@ -1,7 +1,15 @@
-import {inject, Getter} from '@loopback/core';
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
+import {Getter, inject} from '@loopback/core';
+import {
+  BelongsToAccessor,
+  DefaultCrudRepository,
+  repository,
+} from '@loopback/repository';
 import {RedSocialContextDataSource} from '../datasources';
-import {ReaccionPublicacion, ReaccionPublicacionRelations, Publicacion} from '../models';
+import {
+  Publicacion,
+  ReaccionPublicacion,
+  ReaccionPublicacionRelations,
+} from '../models';
 import {PublicacionRepository} from './publicacion.repository';
 
 export class ReaccionPublicacionRepository extends DefaultCrudRepository<
@@ -9,14 +17,25 @@ export class ReaccionPublicacionRepository extends DefaultCrudRepository<
   typeof ReaccionPublicacion.prototype.reaccionPublicacionId,
   ReaccionPublicacionRelations
 > {
-
-  public readonly publicacion: BelongsToAccessor<Publicacion, typeof ReaccionPublicacion.prototype.reaccionPublicacionId>;
+  public readonly publicacion: BelongsToAccessor<
+    Publicacion,
+    typeof ReaccionPublicacion.prototype.reaccionPublicacionId
+  >;
 
   constructor(
-    @inject('datasources.RedSocialContext') dataSource: RedSocialContextDataSource, @repository.getter('PublicacionRepository') protected publicacionRepositoryGetter: Getter<PublicacionRepository>,
+    @inject('datasources.RedSocialContext')
+    dataSource: RedSocialContextDataSource,
+    @repository.getter('PublicacionRepository')
+    protected publicacionRepositoryGetter: Getter<PublicacionRepository>,
   ) {
     super(ReaccionPublicacion, dataSource);
-    this.publicacion = this.createBelongsToAccessorFor('publicacion', publicacionRepositoryGetter,);
-    this.registerInclusionResolver('publicacion', this.publicacion.inclusionResolver);
+    this.publicacion = this.createBelongsToAccessorFor(
+      'publicacion',
+      publicacionRepositoryGetter,
+    );
+    this.registerInclusionResolver(
+      'publicacion',
+      this.publicacion.inclusionResolver,
+    );
   }
 }

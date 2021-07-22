@@ -15,16 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-  Perfil,
-  Publicacion,
-} from '../models';
+import {Perfil, Publicacion} from '../models';
 import {PerfilRepository} from '../repositories';
 
 export class PerfilPublicacionController {
   constructor(
     @repository(PerfilRepository) protected perfilRepository: PerfilRepository,
-  ) { }
+  ) {}
 
   @get('/perfils/{id}/publicacions', {
     responses: {
@@ -61,11 +58,12 @@ export class PerfilPublicacionController {
           schema: getModelSchemaRef(Publicacion, {
             title: 'NewPublicacionInPerfil',
             exclude: ['publicacionId'],
-            optional: ['perfilId']
+            optional: ['perfilId'],
           }),
         },
       },
-    }) publicacion: Omit<Publicacion, 'publicacionId'>,
+    })
+    publicacion: Omit<Publicacion, 'publicacionId'>,
   ): Promise<Publicacion> {
     return this.perfilRepository.publicaciones(id).create(publicacion);
   }
@@ -88,7 +86,8 @@ export class PerfilPublicacionController {
       },
     })
     publicacion: Partial<Publicacion>,
-    @param.query.object('where', getWhereSchemaFor(Publicacion)) where?: Where<Publicacion>,
+    @param.query.object('where', getWhereSchemaFor(Publicacion))
+    where?: Where<Publicacion>,
   ): Promise<Count> {
     return this.perfilRepository.publicaciones(id).patch(publicacion, where);
   }
@@ -103,7 +102,8 @@ export class PerfilPublicacionController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Publicacion)) where?: Where<Publicacion>,
+    @param.query.object('where', getWhereSchemaFor(Publicacion))
+    where?: Where<Publicacion>,
   ): Promise<Count> {
     return this.perfilRepository.publicaciones(id).delete(where);
   }

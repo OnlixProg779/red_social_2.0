@@ -1,29 +1,50 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {belongsTo, Entity, model, property} from '@loopback/repository';
 import {RespuestaComentario} from './respuesta-comentario.model';
 
 @model({
   settings: {
     idInjection: false,
-    postgresql: {schema: 'public', table: 'ReaccionRespuestaCom'}
-  }
+    postgresql: {schema: 'public', table: 'ReaccionRespuestaCom'},
+  },
 })
 export class ReaccionRespuestaCom extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'ReaccionRespuestaComId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'ReaccionRespuestaComId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   reaccionRespuestaComId: string;
   @property({
     type: 'string',
-    postgresql: {columnName: 'ReaccionText', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'ReaccionText',
+      dataType: 'text',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   reaccionText?: string;
 
   @property({
     type: 'boolean',
-    postgresql: {columnName: 'Active', dataType: 'boolean', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Active',
+      dataType: 'boolean',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   active?: boolean;
 
@@ -44,4 +65,5 @@ export interface ReaccionRespuestaComRelations {
   // describe navigational properties here
 }
 
-export type ReaccionRespuestaComWithRelations = ReaccionRespuestaCom & ReaccionRespuestaComRelations;
+export type ReaccionRespuestaComWithRelations = ReaccionRespuestaCom &
+  ReaccionRespuestaComRelations;

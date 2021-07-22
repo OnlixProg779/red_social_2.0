@@ -1,22 +1,13 @@
-import {
-  repository,
-} from '@loopback/repository';
-import {
-  param,
-  get,
-  getModelSchemaRef,
-} from '@loopback/rest';
-import {
-  Encuesta,
-  Publicacion,
-} from '../models';
+import {repository} from '@loopback/repository';
+import {get, getModelSchemaRef, param} from '@loopback/rest';
+import {Encuesta, Publicacion} from '../models';
 import {EncuestaRepository} from '../repositories';
 
 export class EncuestaPublicacionController {
   constructor(
     @repository(EncuestaRepository)
     public encuestaRepository: EncuestaRepository,
-  ) { }
+  ) {}
 
   @get('/encuestas/{id}/publicacion', {
     responses: {

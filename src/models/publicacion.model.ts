@@ -1,54 +1,113 @@
-import {Entity, model, property, belongsTo, hasMany, hasOne} from '@loopback/repository';
+import {
+  belongsTo,
+  Entity,
+  hasMany,
+  hasOne,
+  model,
+  property,
+} from '@loopback/repository';
+import {Comentario} from './comentario.model';
+import {Encuesta} from './encuesta.model';
+import {EtiquetaPublicacion} from './etiqueta-publicacion.model';
 import {Perfil} from './perfil.model';
 import {ReaccionPublicacion} from './reaccion-publicacion.model';
-import {EtiquetaPublicacion} from './etiqueta-publicacion.model';
-import {Encuesta} from './encuesta.model';
-import {Comentario} from './comentario.model';
 
 @model({
-  settings: {idInjection: false, postgresql: {schema: 'public', table: 'Publicacion'}}
+  settings: {
+    idInjection: false,
+    postgresql: {schema: 'public', table: 'Publicacion'},
+  },
 })
 export class Publicacion extends Entity {
   @property({
     type: 'string',
     required: true,
     id: 1,
-    postgresql: {columnName: 'PublicacionId', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'NO'},
+    postgresql: {
+      columnName: 'PublicacionId',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'NO',
+    },
   })
   publicacionId: string;
   @property({
     type: 'string',
-    postgresql: {columnName: 'PerfilPublicaPk', dataType: 'uuid', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'PerfilPublicaPk',
+      dataType: 'uuid',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   perfilPublicaPk?: string;
 
   @property({
     type: 'date',
-    postgresql: {columnName: 'Date', dataType: 'timestamp with time zone', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Date',
+      dataType: 'timestamp with time zone',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   date?: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'Texto', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Texto',
+      dataType: 'text',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   texto?: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'Video', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Video',
+      dataType: 'text',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   video?: string;
 
   @property({
     type: 'string',
-    postgresql: {columnName: 'Imagen', dataType: 'text', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Imagen',
+      dataType: 'text',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   imagen?: string;
 
   @property({
     type: 'boolean',
-    postgresql: {columnName: 'Active', dataType: 'boolean', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+    postgresql: {
+      columnName: 'Active',
+      dataType: 'boolean',
+      dataLength: null,
+      dataPrecision: null,
+      dataScale: null,
+      nullable: 'YES',
+    },
   })
   active?: boolean;
 

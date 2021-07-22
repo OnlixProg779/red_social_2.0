@@ -9,7 +9,8 @@ export class RolesPaginaRepository extends DefaultCrudRepository<
   RolesPaginaRelations
 > {
   constructor(
-    @inject('datasources.RedSocialContext') dataSource: RedSocialContextDataSource,
+    @inject('datasources.RedSocialContext')
+    dataSource: RedSocialContextDataSource,
   ) {
     super(RolesPagina, dataSource);
   }

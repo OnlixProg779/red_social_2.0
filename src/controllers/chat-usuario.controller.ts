@@ -5,7 +5,7 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -15,17 +15,13 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
-import {
-Chat,
-UsuarioHasChat,
-Usuario,
-} from '../models';
+import {Chat, Usuario} from '../models';
 import {ChatRepository} from '../repositories';
 
 export class ChatUsuarioController {
   constructor(
     @repository(ChatRepository) protected chatRepository: ChatRepository,
-  ) { }
+  ) {}
 
   @get('/chats/{id}/usuarios', {
     responses: {
@@ -65,7 +61,8 @@ export class ChatUsuarioController {
           }),
         },
       },
-    }) usuario: Omit<Usuario, 'usuarioId'>,
+    })
+    usuario: Omit<Usuario, 'usuarioId'>,
   ): Promise<Usuario> {
     return this.chatRepository.usuarios(id).create(usuario);
   }
@@ -88,7 +85,8 @@ export class ChatUsuarioController {
       },
     })
     usuario: Partial<Usuario>,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.chatRepository.usuarios(id).patch(usuario, where);
   }
@@ -103,7 +101,8 @@ export class ChatUsuarioController {
   })
   async delete(
     @param.path.string('id') id: string,
-    @param.query.object('where', getWhereSchemaFor(Usuario)) where?: Where<Usuario>,
+    @param.query.object('where', getWhereSchemaFor(Usuario))
+    where?: Where<Usuario>,
   ): Promise<Count> {
     return this.chatRepository.usuarios(id).delete(where);
   }
