@@ -49,3 +49,4 @@ export * from './usuario/usuario-notificacion.controller';
 export * from './usuario/usuario-perfil.controller';
 export * from './usuario/usuario-usuario-claim.controller';
 export * from './usuario/usuario.controller';
+export * from './roles-pagina.controller';

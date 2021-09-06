@@ -1,9 +1,7 @@
 # Controllers
 
-This directory contains source files for the controllers exported by this app.
+Funciona en conjunto con el modelo y los repositorios.
 
-To add a new empty controller, type in `lb4 controller [<name>]` from the
-command-line of your application's root directory.
+el modelo es un DTO para todo, excepto en las tablas de rompimiento.
 
-For more information, please visit
-[Controller generator](http://loopback.io/doc/en/lb4/Controller-generator.html).
+En ella se crea un DTO para cada operacion (UPDATE-CREATE-GET)
