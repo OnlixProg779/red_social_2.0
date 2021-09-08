@@ -1,5 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
-//import {v4 as uuidv4} from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 
 @model({
   settings: {
@@ -21,7 +21,7 @@ export class RolesPagina extends Entity {
       nullable: 'NO',
     },
   })
-  rolesPaginaid: string; // = uuidv4();
+  rolesPaginaid: string = uuidv4();
   @property({
     type: 'string',
     required: true,
