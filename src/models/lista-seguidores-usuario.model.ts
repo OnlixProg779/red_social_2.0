@@ -1,4 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
+import {v4 as uuidv4} from 'uuid';
 
 @model({
   settings: {
@@ -20,7 +21,7 @@ export class ListaSeguidoresUsuario extends Entity {
       nullable: 'NO',
     },
   })
-  listaSeguidoresUsuarioId: string;
+  listaSeguidoresUsuarioId: string = uuidv4();
 
   @property({
     type: 'string',
