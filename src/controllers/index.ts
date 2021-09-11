@@ -56,3 +56,4 @@ export * from './lista-bloqueados-usuario-rompimiento.controller';
 export * from './usuario-has-chat.controller';
 export * from './miembro.controller';
 export * from './participante.controller';
+export * from './perfil.controller';
