@@ -1,9 +1,7 @@
 import {Entity, hasMany, model, property} from '@loopback/repository';
-import {Historia} from './historia.model';
-import {MarketPlace} from './market-place.model';
-import {Publicacion} from './publicacion.model';
 import {RolesPagina} from './roles-pagina.model';
 import {Usuario} from './usuario.model';
+import {Publicacion} from './publicacion.model';
 
 @model({
   settings: {
@@ -131,14 +129,17 @@ export class Perfil extends Entity {
   })
   tipo?: string;
 
-  @hasMany(() => MarketPlace)
-  marketPlaces: MarketPlace[];
 
+  // @hasMany(() => MarketPlace)
   @hasMany(() => Publicacion)
   publicaciones: Publicacion[];
+  // marketPlaces: MarketPlace[];
 
-  @hasMany(() => Historia)
-  historias: Historia[];
+  // @hasMany(() => Publicacion)
+  // publicaciones: Publicacion[];
+
+  // @hasMany(() => Historia)
+  // historias: Historia[];
 
   @hasMany(() => Usuario, {through: {model: () => RolesPagina}})
   usuarios: Usuario[];
