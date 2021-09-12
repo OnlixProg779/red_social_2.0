@@ -17,3 +17,4 @@ export * from './usuario-claim.repository';
 export * from './usuario-has-chat.repository';
 export * from './usuario.repository';
 export * from './publicacion.repository';
+export * from './comentario.repository';

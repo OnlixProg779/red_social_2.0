@@ -17,3 +17,4 @@ export * from './usuario-claim.model';
 export * from './usuario-has-chat.model';
 export * from './usuario.model';
 export * from './publicacion.model';
+export * from './comentario.model';

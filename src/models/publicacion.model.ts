@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Comentario} from './comentario.model';
 
 @model({
   settings: {idInjection: false, postgresql: {schema: 'public', table: 'Publicacion'}}
@@ -54,6 +55,8 @@ export class Publicacion extends Entity {
   })
   active?: boolean;
 
+  @hasMany(() => Comentario)
+  comentarios: Comentario[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
