@@ -15,6 +15,7 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
+import {v4 as uuidv4} from 'uuid';
 import {Perfil, Publicacion} from '../../models';
 import {PerfilRepository} from '../../repositories';
 
@@ -65,6 +66,8 @@ export class PerfilPublicacionController {
     })
     publicacion: Omit<Publicacion, 'publicacionId'>,
   ): Promise<Publicacion> {
+    publicacion.publicacionId = uuidv4();
+    console.log(publicacion);
     return this.perfilRepository.publicaciones(id).create(publicacion);
   }
 
