@@ -30,3 +30,4 @@ export * from './usuario/usuario.controller';
 export * from './usuario-notificacion.controller';
 export * from './grupos.controller';
 export * from './eventos.controller';
+export * from './publicaciones.controller';
