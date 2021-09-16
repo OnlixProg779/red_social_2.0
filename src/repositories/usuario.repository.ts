@@ -17,15 +17,13 @@ import {
   ListaSeguidores,
   ListaSeguidoresUsuario,
   Miembro,
-  Notificacion,
   Participante,
   Perfil,
   RolesPagina,
   Usuario,
   UsuarioClaim,
   UsuarioHasChat,
-  UsuarioRelations,
-} from '../models';
+  UsuarioRelations, Notificacion} from '../models';
 import {ChatRepository} from './chat.repository';
 import {EventoRepository} from './evento.repository';
 import {GrupoRepository} from './grupo.repository';
@@ -36,23 +34,18 @@ import {ListaBloqueadosRepository} from './lista-bloqueados.repository';
 import {ListaSeguidoresUsuarioRepository} from './lista-seguidores-usuario.repository';
 import {ListaSeguidoresRepository} from './lista-seguidores.repository';
 import {MiembroRepository} from './miembro.repository';
-import {NotificacionRepository} from './notificacion.repository';
 import {ParticipanteRepository} from './participante.repository';
 import {PerfilRepository} from './perfil.repository';
 import {RolesPaginaRepository} from './roles-pagina.repository';
 import {UsuarioClaimRepository} from './usuario-claim.repository';
 import {UsuarioHasChatRepository} from './usuario-has-chat.repository';
+import {NotificacionRepository} from './notificacion.repository';
 
 export class UsuarioRepository extends DefaultCrudRepository<
   Usuario,
   typeof Usuario.prototype.usuarioId,
   UsuarioRelations
 > {
-  public readonly notificaciones: HasManyRepositoryFactory<
-    Notificacion,
-    typeof Usuario.prototype.usuarioId
-  >;
-
   public readonly usuarioClaims: HasManyRepositoryFactory<
     UsuarioClaim,
     typeof Usuario.prototype.usuarioId
@@ -107,11 +100,11 @@ export class UsuarioRepository extends DefaultCrudRepository<
     typeof Usuario.prototype.usuarioId
   >;
 
+  public readonly notificacions: HasManyRepositoryFactory<Notificacion, typeof Usuario.prototype.usuarioId>;
+
   constructor(
     @inject('datasources.RedSocialContext')
     dataSource: RedSocialContextDataSource,
-    @repository.getter('NotificacionRepository')
-    protected notificacionRepositoryGetter: Getter<NotificacionRepository>,
     @repository.getter('UsuarioClaimRepository')
     protected usuarioClaimRepositoryGetter: Getter<UsuarioClaimRepository>,
     @repository.getter('MiembroRepository')
@@ -141,9 +134,10 @@ export class UsuarioRepository extends DefaultCrudRepository<
     @repository.getter('RolesPaginaRepository')
     protected rolesPaginaRepositoryGetter: Getter<RolesPaginaRepository>,
     @repository.getter('PerfilRepository')
-    protected perfilRepositoryGetter: Getter<PerfilRepository>,
+    protected perfilRepositoryGetter: Getter<PerfilRepository>, @repository.getter('NotificacionRepository') protected notificacionRepositoryGetter: Getter<NotificacionRepository>,
   ) {
     super(Usuario, dataSource);
+    this.notificacions = this.createHasManyRepositoryFactoryFor('notificacions', notificacionRepositoryGetter,);
     this.perfils = this.createHasManyThroughRepositoryFactoryFor(
       'perfils',
       perfilRepositoryGetter,
@@ -202,14 +196,6 @@ export class UsuarioRepository extends DefaultCrudRepository<
     this.registerInclusionResolver(
       'usuarioClaims',
       this.usuarioClaims.inclusionResolver,
-    );
-    this.notificaciones = this.createHasManyRepositoryFactoryFor(
-      'notificaciones',
-      notificacionRepositoryGetter,
-    );
-    this.registerInclusionResolver(
-      'notificaciones',
-      this.notificaciones.inclusionResolver,
     );
   }
 }

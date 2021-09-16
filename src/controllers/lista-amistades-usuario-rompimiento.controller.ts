@@ -7,29 +7,32 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
+import {v4 as uuidv4} from 'uuid';
 import {ListaAmistadesUsuario} from '../models';
 import {ListaAmistadesUsuarioRepository} from '../repositories';
 
 export class ListaAmistadesUsuarioRompimientoController {
   constructor(
     @repository(ListaAmistadesUsuarioRepository)
-    public listaAmistadesUsuarioRepository : ListaAmistadesUsuarioRepository,
+    public listaAmistadesUsuarioRepository: ListaAmistadesUsuarioRepository,
   ) {}
 
   @post('/lista-amistades-usuarios')
   @response(200, {
     description: 'ListaAmistadesUsuario model instance',
-    content: {'application/json': {schema: getModelSchemaRef(ListaAmistadesUsuario)}},
+    content: {
+      'application/json': {schema: getModelSchemaRef(ListaAmistadesUsuario)},
+    },
   })
   async create(
     @requestBody({
@@ -37,13 +40,13 @@ export class ListaAmistadesUsuarioRompimientoController {
         'application/json': {
           schema: getModelSchemaRef(ListaAmistadesUsuario, {
             title: 'NewListaAmistadesUsuario',
-            
           }),
         },
       },
     })
     listaAmistadesUsuario: ListaAmistadesUsuario,
   ): Promise<ListaAmistadesUsuario> {
+    listaAmistadesUsuario.listaAmistadesUsuarioId = uuidv4();
     return this.listaAmistadesUsuarioRepository.create(listaAmistadesUsuario);
   }
 
@@ -65,7 +68,9 @@ export class ListaAmistadesUsuarioRompimientoController {
       'application/json': {
         schema: {
           type: 'array',
-          items: getModelSchemaRef(ListaAmistadesUsuario, {includeRelations: true}),
+          items: getModelSchemaRef(ListaAmistadesUsuario, {
+            includeRelations: true,
+          }),
         },
       },
     },
@@ -92,7 +97,10 @@ export class ListaAmistadesUsuarioRompimientoController {
     listaAmistadesUsuario: ListaAmistadesUsuario,
     @param.where(ListaAmistadesUsuario) where?: Where<ListaAmistadesUsuario>,
   ): Promise<Count> {
-    return this.listaAmistadesUsuarioRepository.updateAll(listaAmistadesUsuario, where);
+    return this.listaAmistadesUsuarioRepository.updateAll(
+      listaAmistadesUsuario,
+      where,
+    );
   }
 
   @get('/lista-amistades-usuarios/{id}')
@@ -100,13 +108,16 @@ export class ListaAmistadesUsuarioRompimientoController {
     description: 'ListaAmistadesUsuario model instance',
     content: {
       'application/json': {
-        schema: getModelSchemaRef(ListaAmistadesUsuario, {includeRelations: true}),
+        schema: getModelSchemaRef(ListaAmistadesUsuario, {
+          includeRelations: true,
+        }),
       },
     },
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(ListaAmistadesUsuario, {exclude: 'where'}) filter?: FilterExcludingWhere<ListaAmistadesUsuario>
+    @param.filter(ListaAmistadesUsuario, {exclude: 'where'})
+    filter?: FilterExcludingWhere<ListaAmistadesUsuario>,
   ): Promise<ListaAmistadesUsuario> {
     return this.listaAmistadesUsuarioRepository.findById(id, filter);
   }
@@ -126,7 +137,10 @@ export class ListaAmistadesUsuarioRompimientoController {
     })
     listaAmistadesUsuario: ListaAmistadesUsuario,
   ): Promise<void> {
-    await this.listaAmistadesUsuarioRepository.updateById(id, listaAmistadesUsuario);
+    await this.listaAmistadesUsuarioRepository.updateById(
+      id,
+      listaAmistadesUsuario,
+    );
   }
 
   @put('/lista-amistades-usuarios/{id}')
@@ -137,7 +151,10 @@ export class ListaAmistadesUsuarioRompimientoController {
     @param.path.string('id') id: string,
     @requestBody() listaAmistadesUsuario: ListaAmistadesUsuario,
   ): Promise<void> {
-    await this.listaAmistadesUsuarioRepository.replaceById(id, listaAmistadesUsuario);
+    await this.listaAmistadesUsuarioRepository.replaceById(
+      id,
+      listaAmistadesUsuario,
+    );
   }
 
   @del('/lista-amistades-usuarios/{id}')

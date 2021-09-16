@@ -15,6 +15,7 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
+import {v4 as uuidv4} from 'uuid';
 import {Evento, Usuario} from '../../models';
 import {UsuarioRepository} from '../../repositories';
 
@@ -65,6 +66,7 @@ export class UsuarioEventoController {
     })
     evento: Omit<Evento, 'eventoId'>,
   ): Promise<Evento> {
+    evento.eventoId = uuidv4();
     return this.usuarioRepository.eventos(id).create(evento);
   }
 

@@ -9,12 +9,12 @@ import {ListaBloqueados} from './lista-bloqueados.model';
 import {ListaSeguidoresUsuario} from './lista-seguidores-usuario.model';
 import {ListaSeguidores} from './lista-seguidores.model';
 import {Miembro} from './miembro.model';
-import {Notificacion} from './notificacion.model';
 import {Participante} from './participante.model';
 import {Perfil} from './perfil.model';
 import {RolesPagina} from './roles-pagina.model';
 import {UsuarioClaim} from './usuario-claim.model';
 import {UsuarioHasChat} from './usuario-has-chat.model';
+import {Notificacion} from './notificacion.model';
 
 @model({
   settings: {
@@ -90,9 +90,6 @@ export class Usuario extends Entity {
   })
   active?: boolean;
 
-  @hasMany(() => Notificacion)
-  notificaciones: Notificacion[];
-
   @hasMany(() => UsuarioClaim)
   usuarioClaims: UsuarioClaim[];
 
@@ -122,6 +119,9 @@ export class Usuario extends Entity {
 
   @hasMany(() => Perfil, {through: {model: () => RolesPagina}})
   perfils: Perfil[];
+
+  @hasMany(() => Notificacion)
+  notificacions: Notificacion[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

@@ -15,6 +15,7 @@ import {
   post,
   requestBody,
 } from '@loopback/rest';
+import {v4 as uuidv4} from 'uuid';
 import {Grupo, Usuario} from '../../models';
 import {UsuarioRepository} from '../../repositories';
 
@@ -65,6 +66,8 @@ export class UsuarioGrupoController {
     })
     grupo: Omit<Grupo, 'grupoId'>,
   ): Promise<Grupo> {
+    grupo.grupoId = uuidv4();
+
     return this.usuarioRepository.grupos(id).create(grupo);
   }
 
