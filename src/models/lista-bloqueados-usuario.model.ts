@@ -1,5 +1,5 @@
 import {Entity, model, property} from '@loopback/repository';
-import {v4 as uuidv4} from 'uuid';
+// import {v4 as uuidv4} from 'uuid';
 
 @model({
   settings: {
@@ -21,7 +21,7 @@ export class ListaBloqueadosUsuario extends Entity {
       nullable: 'NO',
     },
   })
-  listaBloqueadosUsuarioId: string = uuidv4();
+  listaBloqueadosUsuarioId: string;
 
   @property({
     type: 'string',

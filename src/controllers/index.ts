@@ -28,3 +28,5 @@ export * from './usuario/usuario-perfil.controller';
 export * from './usuario/usuario-usuario-claim.controller';
 export * from './usuario/usuario.controller';
 export * from './usuario-notificacion.controller';
+export * from './grupos.controller';
+export * from './eventos.controller';
